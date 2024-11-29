@@ -1,0 +1,79 @@
+## Interview Q ###
+1. What is SSH?  -> Socket shell used to communicate eith servers
+2. What is port number of SSH?  -> 22
+3. How to show cpu information and memory information?
+          -> CPU information = command : lscpu or cat /proc/cpuinfo
+          -> Memory information = command : lsmem or cat /proc/meminfo
+4. How to check server performance?  -> command : top or htop 
+
+AWS : EC2 INSTANCES = ELASTIC COMPUTE CLOUD
+TO CREATE EC2 WE NEED TO PERFORM 7 STEPS:
+
+SERVER : COMPUTER
+1. TAGS = NAME
+2. AMI (AMAZON MACHINE IMAGE) = OS, SOFTWARE PACKAGES 
+3. INSTANCE_TYPE = CPU & RAM
+4. KEY_PAIR = LOGIN (public = managed by AWS , private = user)
+5. NETWORK = VPC, SECURITY GROUPS (port number = 0-65535)
+6. STORAGE = 8 GB - 16 TB
+7. SUMMARY = TO REVIEW
+
+
+-- 04 --
+
+OS = USED TO COMMUNICATE WITH SERVERS / SYSTEMS
+TYPES :
+1. Windows
+2. Linux
+3. IOS / MACOS
+
+MODES :
+1. GUI = Graphical User Interface
+2. CLI = Command Line Interface
+
+COMMANDS :
+sudo -i                   : to switch from ec2-user to root-user
+sudo su -                 : to switch from ec2-user to root-user
+sudo su                   : to switch from ec2-user to root-user
+logout (ctrl d)           : to switch from root-user to ec2-user
+cat                       : to show the content of file
+cat /proc/cpuinfo         : to show the cpu information
+lscpu                     : to show the cpu information
+cat /proc/meminfo         : to show memory information
+lsmem                     : to show memory information
+fdisk -l                  : to show volume/ROM information
+lsblk                     : to show volume information
+df // df -m // df -i      : to show volume information
+ifconfig / ip addr / ip addr show / hostname -i  : to show the ip address
+
+-- 05 --
+
+FILE COMMANDS :
+touch file1           : to create a file
+ls or ll              : to show the list of files
+cat file1             : to show the content 
+cat>>file1            : to write content in a file
+enter ctrl d          : to save and exit from file
+cp file1 file2        : copies the content from file1 to file2
+mv file1 file2        : to rename file1 to file2
+rm file1              : to remove a file
+rm file1 -f           :to remove a file forcefully
+rm * -f               :to remove all files forcefully
+touch file{1..100}    : to create 100 files at a time
+cat file1 >>file2     : to copy content from file1 to file2 (without overriding)
+========================================================================
+How to check the SERVER Performance:
+top
+htop : yum install htop -y
+
+head file1  : shows first 10 lines a file
+head -5 file1  : shows first 5 lines a file
+head -15 file1  :show first 15 lines a file
+tail file1  : shows last 10 lines a file
+tail -5 file1  : shows last 5 lines a file
+tail -15 file1  : shows last 15 lines a file
+sed -n '5,15p' file1  : to print line5 to 15    (-n = numbers of lines    p = print)
+wc  : to show lines, words & characters
+
+
+
