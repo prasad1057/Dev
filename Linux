@@ -75,5 +75,69 @@ tail -15 file1  : shows last 15 lines a file
 sed -n '5,15p' file1  : to print line5 to 15    (-n = numbers of lines    p = print)
 wc  : to show lines, words & characters
 
+-------------------------------------------------------
+-- 06 --
+
+EDITORS : to edit the files
+Types:
+1. VIM / vi
+2. nano
+
+i          : to insert the content 
+ecc        : to come out from insert mode
 
 
+There are 3 modes in VIM :
+1. command mode 
+2. insert mode
+3. save mode
+
+3. SAVE MODE :
+:w          : to save
+:q          : to quit
+:wq         : to save and quit
+:wq!        : save and quit forcefully 
+
+2. INSERT MODE :
+i          : to insert command
+A          : end of the line   (ensure that you are outside of insert mode)
+I          : starting of line  (ensure that you are outside of insert mode)
+O          : create new line above existing
+o          : create new line below existing
+
+1. COMMAND MODE :
+gg               : top of the file
+shift g          : last line of file
+:set number      : to show number of lines inside file
+:n               : to go to specific line
+yy               : to copy a line
+10yy             : to copy 10 lines
+p                : to paste
+5pp              : to paste 5 lines
+dd               : to delete 
+10dd             : to delete 10 lines
+u                :undo
+ctrl r           :redo
+/word            : to search for a word
+=====================================================
+
+PERMISSIONS : 
+-rw-r--r--
+
+Types of FILE :
+-          : regular file
+b          : blocked file
+c          : character file
+d          : directory (folder)
+l          : link file
+
+PERMISSIONS :
+
+read        : r : 4
+write       : w : 2
+executable  : x : 1
+
+CATEGORIES :
+user    : rw-   : 6     (come under user category) (r+w = 4+2 = 6)
+group   : r--   : 4   
+others  : r--   : 4
