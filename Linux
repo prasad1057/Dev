@@ -5,6 +5,13 @@
           -> CPU information = command : lscpu or cat /proc/cpuinfo
           -> Memory information = command : lsmem or cat /proc/meminfo
 4. How to check server performance?  -> command : top or htop 
+5. For example there is a log file and in that i want to search an error how can i do it ?
+          -> indirectly asked Q -> command : cat file_name | grep error(word) -i
+
+
+
+
+---------------------------------------------------------------------
 
 AWS : EC2 INSTANCES = ELASTIC COMPUTE CLOUD
 TO CREATE EC2 WE NEED TO PERFORM 7 STEPS:
@@ -141,3 +148,35 @@ CATEGORIES :
 user    : rw-   : 6     (come under user category) (r+w = 4+2 = 6)
 group   : r--   : 4   
 others  : r--   : 4
+
+METHOD 1(numerical)    : chmod 567 file1
+METHOD 2(alphabetical) : chmod u=rwx,g=rw,o=rx          (u-user,g-group,o-oathers)
+----------------------------------------------------------
+
+-- 07 --
+
+GREP : Global Regular Expression Print
+-> to search the words in a file
+
+grep karan file1                  : to search for karan word
+grep karan file1 -i               : to search for karan word (-i : avoid case sensitive)
+grep karan file1 -ic              : to count for karan word (-c : to check how many times karan word is repeating i.e. count)
+grep karan file1 -v               : to print lines without karan word (-v : to avoid)
+grep 'word1\|word2\|word3' file1  : to search multiple words at a time
+cat file1 | grep karan  :
+->   | : pipe symbol : here 1st command is the input for second command
+
+==========================================================================
+35.40
+SED : STREAM EDITOR
+
+
+
+
+
+
+
+
+
+
+
