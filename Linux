@@ -190,7 +190,7 @@ sed -n '10p' file1                     : to print particular line number 10
 =====================================================================================
 
 users & groups :
-to work' with server we need to login as user.
+to work with server we need to login as user.
 
 Types of users : 
 ec2-user    : default
@@ -199,7 +199,26 @@ root        : admin (he has all permissions)
 useradd prasad    : to create a user
 cat /etc/passwd   : to list users
 
+Set of rules for creating a password :
+1. it will not be exposed.
+2. username will not be given as password.
+3. min 8 character.
 
+
+** If you want to give a permission on specific user you need to add in sudo file. **
+** In sudo file, on line number 100 there is root user **
+** sudo user means he having all the permissions **
+
+visudo          : file contains users which they have permissions and we can edit those permissions 
+su - karan      : switch on particular user
+
+NORMAL TO SUPER USER :
+
+useradd karan
+passwd karan
+visudo --> :100  --> yy & p --> root = karan --> save
+su - karan
+sudo useradd prasad
 
 
 
