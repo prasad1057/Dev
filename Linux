@@ -13,6 +13,8 @@
 
 ---------------------------------------------------------------------
 
+** without user we can not login to server **
+
 AWS : EC2 INSTANCES = ELASTIC COMPUTE CLOUD
 TO CREATE EC2 WE NEED TO PERFORM 7 STEPS:
 
@@ -116,6 +118,7 @@ o          : create new line below existing
 gg               : top of the file
 shift g          : last line of file
 :set number      : to show number of lines inside file
+cat -n file1     : to show the number of lines outside from file
 :n               : to go to specific line
 yy               : to copy a line
 10yy             : to copy 10 lines
@@ -167,12 +170,34 @@ cat file1 | grep karan  :
 ->   | : pipe symbol : here 1st command is the input for second command
 
 ==========================================================================
-35.40
-SED : STREAM EDITOR
+cat -n file1                           : to show the number of lines outside from file 
 
+SED : STREAM EDITOR   (sed command will replace a word occuring in single time in line)
+-> to used to replace the words in file.
 
+sed 's/word1/word2/'                   : to replace word1 with word2
+sed 's/devops/aws/;s/karan/prasad/'    : to replace multiple words
+sed '2c who am i' file1                : to replace a line
+sed -n '5,12p' file1                   : to print from line 5 to 12
+  * Optional *
+    cat file1 | sed -n '5,12p'         : to print from line 5 to 12
+    cat -n file1 | sed -n '5,12p'      : to print from line 5 to 12 wtih index number
+sed -n '10p' file1                     : to print particular line number 10 
 
+:%s/word1/word2/        : to replace a word1 with word2 inside the file.   (% means filter out)
+:%s/word1/word2/g       :  to repalce same word occuring multiple times in single line
 
+=====================================================================================
+
+users & groups :
+to work' with server we need to login as user.
+
+Types of users : 
+ec2-user    : default
+root        : admin (he has all permissions)
+
+useradd prasad    : to create a user
+cat /etc/passwd   : to list users
 
 
 
