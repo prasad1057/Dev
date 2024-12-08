@@ -1,0 +1,42 @@
+###  INTERVIEW QUESTIONS ###
+
+1. Git is which generation of VCS ?     --> 3rd
+
+
+
+
+
+***  Linux Torvalds    :    Invented LINUX and GIT also   ***
+
+GIT  :  GLOBAL INFORMATION TRACKER (Globally you can follow up the information)
+
+Git also called as Version Control System (VCS) & Source Code Management (SCM)
+
+VCS  :  Controlling the source code of every version.
+     :  it will keep the source code separately for each version.
+
+Repository  :   Folder which contains the source code.
+
+v-1   : 100 lines   ---->  store (repo-1)
+v-2   : 200 lines   ---->  store (repo-2)
+v-3   : 300 lines   ---->  store (repo-3)
+
+Git : also called as * Chit *
+        - used to track files
+        - maintain multiple version of same file
+        - platform independent
+        - free and open source
+        - handle large projects
+        - 3rd generarion of VCS
+        - it is written on c language
+        - it came on the year 2005
+
+
+
+
+
+
+
+
+
+
