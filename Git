@@ -32,11 +32,51 @@ Git : also called as * Chit *
         - it came on the year 2005
 
 
+VCS History:
+
+     SCCM                    RCS                          CVS                    SVN                         GIT
+can track single      can track multiple        can track multiple      can track multiple files          Same as SVN but can access
+file                  file & can't track        file and also track     and also folders and also         on multiple places
+(1972)               folders but only single   folders but only one    multiple user can access              (2005)
+                      permission is there       permission is there    source code placed on single
+                                                                        place. (2000)
+
+
+CVCS  :  CENTRALIZED VERSION CONTROL SYSTEM.
+Ex : SVN : it can store code in a single repository
+
+DVCS  :  DISTRIBUTED VERSION CONTROL SYSTEM.
+Ex : GIT : it can store code in a multiple repository
+
+
+ROLLBACK  :  Going back to previous version of application.
+
+
+STAGES: (GIT ARCHITECTURE)
+WORKING DIRECTORY : where we can write our source code.
+STAGING AREA : we track files here.
+REPOSITORY: where we store the tracked source code.
 
 
 
+WORKING WITH GIT :
+create a ec-2 server
+mkdir zomato
+cd zomato
 
+yum install git -y        [yum=pkg manager, install=action, gir=pkg name, -y=yes]
 
+git -v     : to check version
+git init     : to intsall .git (local repo)   (If you dont have .git , your commands will not work )
 
+to create file     : vi index.html  
+to check file      : git status
+to track file      : git add index.html
+to store file      : git commit -m 'commit-1' index.html
 
+create file --> add --> commit
+
+to show commits            : git log
+to show last 2 commits     : git log -2
+to show commits in single line     : git log -2 --oneline
 
