@@ -24,7 +24,7 @@ v-3   : 300 lines   ---->  store (repo-3)
 Git : also called as * Chit *
         - used to track files
         - maintain multiple version of same file
-        - platform independent
+        - platform independent  (run on any kind of platform)
         - free and open source
         - handle large projects
         - 3rd generarion of VCS
@@ -50,12 +50,13 @@ Ex : GIT : it can store code in a multiple repository
 
 
 ROLLBACK  :  Going back to previous version of application.
+     (when current versionis not wokring then we are going to use ROLLBACK)
 
 
 STAGES: (GIT ARCHITECTURE)
 WORKING DIRECTORY : where we can write our source code.
-STAGING AREA : we track files here.
-REPOSITORY: where we store the tracked source code.
+STAGING AREA      : we track files here.
+REPOSITORY        : where we store the tracked source code.
 
 
 
@@ -66,7 +67,7 @@ cd zomato
 
 yum install git -y        [yum=pkg manager, install=action, gir=pkg name, -y=yes]
 
-git -v     : to check version
+git -v       : to check version
 git init     : to intsall .git (local repo)   (If you dont have .git , your commands will not work )
 
 to create file     : vi index.html  
@@ -76,7 +77,28 @@ to store file      : git commit -m 'commit-1' index.html
 
 create file --> add --> commit
 
-to show commits            : git log
-to show last 2 commits     : git log -2
+to show commits                    : git log
+to show last 2 commits             : git log -2
 to show commits in single line     : git log -2 --oneline
+
+----------------------------------------------------
+
+-- 09 --
+
+
+git config user.name 'karan'
+git config user.email 'karan2603@gmail.com'
+
+NOTE : this user and email will be replicated to new comits only.
+
+Git shoe : used to show the files which are attached to commits.
+git log --oneline
+git show commit_id
+
+
+## Branches : 
+
+
+
+
 
