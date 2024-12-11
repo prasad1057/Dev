@@ -97,7 +97,7 @@ git config user.email 'karan2603@gmail.com'
 
 NOTE : this user and email will be replicated to new comits only.
 
-Git shoe : used to show the files which are attached to commits.
+git show : used to show the files which are attached to commits.
 git log --oneline
 git show commit_id
 
@@ -133,5 +133,20 @@ PROCESS :
               |  
      git commit -m 'commited' movies*
 
+NOW PUSH THE CODE TO GITHUB :
+create a repo
+git remote add origin <link>
 
+PUSH : to send files from git(local) to github(remote)
+local: .git  &  remote: paytm.git
+git push origin movies
+username:
+password:
+
+
+TOKEN GENERATION : 
+account -->  settings --> developer setting --> PAT(Personal Access Token) --> Classic --> Generate new token --> classic --> name: abcd --> select 6 options --> genreate
+
+NOTE: it will be visible only once 
+token1 (expiry in 30days) : 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
 
