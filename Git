@@ -114,3 +114,24 @@ git show commit_id
 Developer --> Git(Movies branch) --> code --> github
 
 
+COMMANDS :
+** When you go to new brnach whatever you commited in previous brnach those brnaches are carry forward to the new brnach **
+
+git branch              : to list the branches
+git branch movies       : to create the new branch movie
+git checkout movies     : to switch from one brnach to another branch 
+
+
+PROCESS :
+     git brnach movies
+              | 
+     git checkout movies
+              |
+     tocuh movies{1..5}
+              |
+     git add movies*
+              |  
+     git commit -m 'commited' movies*
+
+
+
