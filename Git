@@ -1,7 +1,13 @@
 ###  INTERVIEW QUESTIONS ###
 
 1. Git is which generation of VCS ?     --> 3rd
-
+2. What is Git and why we need to use Git ?
+3. What are the stages on Git and Explain them ?
+4. Differ between CVCS v/s DVCS ?
+5. Differ between SVN and GIT ?    --> Both are same 
+6. How to check commits in git ?    --> 
+7. Exaplin branches in Git ?
+8. Which is default branch in Git ?    --> Master Branch
 
 
 
@@ -97,8 +103,14 @@ git show commit_id
 
 
 ## Branches : 
+     It is a individual line of code.
+     developer write a code on the branch.
+     initially branches  we create on git.
+     after write source code on git we push on github.
+     Default brnach is Master.
+     NOTE: when we do initial commit the only default brnach will be creatd.
 
 
-
+Developer --> Git(Movies branch) --> code --> github
 
 
