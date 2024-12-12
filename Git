@@ -117,11 +117,11 @@ Developer --> Git(Movies branch) --> code --> github
 COMMANDS :
 ** When you go to new brnach whatever you commited in previous brnach those brnaches are carry forward to the new brnach **
 
-git branch              : to list the branches
-git branch movies       : to create the new branch movie
-git checkout movies     : to switch from one brnach to another branch 
-git checkout -b series     : 
-
+git branch                 : to list the branches
+git branch movies          : to create the new branch movie
+git checkout movies        : to switch from one brnach to another branch 
+git checkout -b series     : to create and switch series branch at same time
+git branch -m old new      : to rename the branch
 
 
 PROCESS :
@@ -168,3 +168,13 @@ create files
 add
 commit
 push
+
+
+** If you want the files but you not have to tracked them for this there is concept gitignore **
+** When you put a .gitignore it will never go to github because you cant track those files **
+ GIT IGNORE : it will not track the files which we want.
+     touch python1
+     vim .gitignore
+     j*  --> :wq
+     git status
+     you cant see the files now
