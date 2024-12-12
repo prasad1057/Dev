@@ -120,6 +120,8 @@ COMMANDS :
 git branch              : to list the branches
 git branch movies       : to create the new branch movie
 git checkout movies     : to switch from one brnach to another branch 
+git checkout -b series     : 
+
 
 
 PROCESS :
@@ -140,6 +142,7 @@ PROCESS :
           username
           password (token)
 
+
 NOW PUSH THE CODE TO GITHUB :
 create a repo
 git remote add origin <link>
@@ -156,4 +159,12 @@ account -->  settings --> developer setting --> PAT(Personal Access Token) --> C
 
 NOTE: it will be visible only once 
 token1 (expiry in 30days) : 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
+                          : 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 (2nd account)
 
+
+create branch
+switch branch
+create files
+add
+commit
+push
