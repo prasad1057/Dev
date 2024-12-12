@@ -132,6 +132,13 @@ PROCESS :
      git add movies*
               |  
      git commit -m 'commited' movies*
+              |
+     git remote add origin <link>
+              |     
+     git push origin movies
+              |     
+          username
+          password (token)
 
 NOW PUSH THE CODE TO GITHUB :
 create a repo
