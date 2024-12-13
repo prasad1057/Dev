@@ -117,11 +117,22 @@ Developer --> Git(Movies branch) --> code --> github
 COMMANDS :
 ** When you go to new brnach whatever you commited in previous brnach those brnaches are carry forward to the new brnach **
 
-git branch                 : to list the branches
-git branch movies          : to create the new branch movie
-git checkout movies        : to switch from one brnach to another branch 
-git checkout -b series     : to create and switch series branch at same time
-git branch -m old new      : to rename the branch
+git branch                     : to list the branches
+git branch movies              : to create the new branch movie
+git checkout movies            : to switch from one brnach to another branch 
+git checkout -b series         : to create and switch series branch at same time
+git branch -m old new          : to rename the branch
+git branch -D chackout         : to delete a branch
+git restore --staged file1     : to untracked the tracked file
+git restore file1              : to restore tracked file
+
+
+NOTE : to recover th deleted branch
+
+GIT PULL : it will get the branch from github to git
+git pull origin branch_name
+git checkout branch_name 
+
 
 
 PROCESS :
@@ -178,3 +189,17 @@ push
      j*  --> :wq
      git status
      you cant see the files now
+
+** NOTE : If you want to delete a branch you need to on another branch. If you are on existing current branch you can't delete it. **
+
+GIT RESTORE : to untracked the tracked file.
+touch file1
+git status
+git add file1
+git status
+git restore --staged file1
+
+
+GET BACK THE DELETED FILES :
+Note : we can restore only tracked files.
+git restore file1
