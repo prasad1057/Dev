@@ -16,7 +16,29 @@
      10. What is meaning of STASH and what are those commands?
                --> to hide files whcih are not commited.   --> git stash
 
-d
+     11. What do you know about MERGE CONFLICT ?
+     12. How will you resolve CONFLICT ?   --> manually
+     13. Differ MERGE vs CHERRY-PICK ?
+     14. Differ GIT PUSH vs GIT PULL ?
+     15. DIFFER GIT PULL vs GIT FETCH ?
+               --> Pull : whatever changes come to your local (give you changes)
+               --> Fetch : only changes will shown  (show the changes)
+     16. Differ GIT MERGE vd CHEERY PICK ? 
+               --> Merge : for all files
+               --> CHERRY-PICK : fro specific file
+     17. Differ GIT CLONE vs GIT PULL ?
+               --> Clone : Entire Repository will come
+               --> Pull : only files and branches will come
+     18. Differ GIT CLONE vs GIT FORK ?
+               --> Clone : copy source code from github to git
+               --> Fork :copy source code from github to github only
+     19. Differ GIT REVERT vs GIT RESTORE ?
+     20. What is GIT STASH ?
+     21. What is .gitignore ?
+
+
+
+
 ***  Linux Torvalds    :    Invented LINUX and GIT also   ***
 
 GIT  :  GLOBAL INFORMATION TRACKER (Globally you can follow up the information)
@@ -131,6 +153,7 @@ git branch -m old new          : to rename the branch
 git branch -D chackout         : to delete a branch
 git restore --staged file1     : to untracked the tracked file
 git restore file1              : to restore tracked file
+git show file1                 : to show the how many commits are done  
 
 
 NOTE : to recover th deleted branch
@@ -231,6 +254,9 @@ git merge branch_name : to merge the branches
 REABSE : adding the files between one branch to another branch
 git rebase branch_name : to merge the branches 
 
+GIT REVERT: used to undo merging blw branches.
+git revert branch_name
+
 
 ** NOTE: If you want to merge the files from github we need to use pull request **
 
@@ -247,3 +273,48 @@ Prcoess:
      git stash list     : to list the stashes
      git stash clear    : to remove stashes
      git stash pop (clear last stash)      : to remove stashes
+
+============================================
+
+git clone: use to copy repo to local 
+git clone https://github.com/chiklu1508/paytm.git
+
+git push: to send code form local to GitHub
+git push origin master
+
+git pull: to get code from GitHub to local 
+git pull origin master
+
+git fetch: it shows changes from GitHub to git 
+git fetch
+
+=================================================
+-- 12 --
+
+MERGE CONFLICT :
+when we try to merge 2 branches with same file and different content
+then conflict will raise.
+so we need to resolve the conflict manually
+                     File1
+              dev-1 -------- dev-2        
+             branch-1--------branch-2   
+             content-1--------content-2    
+
+
+CHERRY-PICK :
+we can merge only specific files from one branch to another
+with the help of commit_id
+
+git cherry-pik commit_id
+
+
+SHOW:
+to show commits for a file
+git show commit_id
+
+git log --stat     : to show the commits history
+git log --patch    : to show the commits history
+
+
+
+
