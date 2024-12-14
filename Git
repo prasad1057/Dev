@@ -1,15 +1,20 @@
 ###  INTERVIEW QUESTIONS ###
 
-1. Git is which generation of VCS ?     --> 3rd
-2. What is Git and why we need to use Git ?
-3. What are the stages on Git and Explain them ?
-4. Differ between CVCS v/s DVCS ?
-5. Differ between SVN and GIT ?    --> Both are same 
-6. How to check commits in git ?    --> 
-7. Exaplin branches in Git ?
-8. Which is default branch in Git ?    --> Master Branch
+     1. Git is which generation of VCS ?     --> 3rd
+     2. What is Git and why we need to use Git ?
+     3. What are the stages on Git and Explain them ?
+     4. Differ between CVCS v/s DVCS ?
+     5. Differ between SVN and GIT ?    --> Both are same 
+     6. How to check commits in git ?    --> git log 
+ **  7. Exaplin branches in Git ?
+     8. Which is default branch in Git ?    --> Master Branch
+ **  9. Differ between MERGE vs REBASE ?  
+               --> merge will show files, rebase will not show files.
+               --> merge will not show branches, rebase will show branches.
+               --> merge will show entire history, rebase will not.
 
-
+     10. What is meaning of STASH and what are those commands?
+               --> to hide files whcih are not commited.   --> git stash
 
 
 ***  Linux Torvalds    :    Invented LINUX and GIT also   ***
@@ -75,6 +80,7 @@ yum install git -y        [yum=pkg manager, install=action, gir=pkg name, -y=yes
 
 git -v       : to check version
 git init     : to intsall .git (local repo)   (If you dont have .git , your commands will not work )
+             : to initialize local repo
 
 to create file     : vi index.html  
 to check file      : git status
@@ -203,3 +209,41 @@ git restore --staged file1
 GET BACK THE DELETED FILES :
 Note : we can restore only tracked files.
 git restore file1
+
+
+master
+1             movies
+               1 + 5 = 6
+              train
+               6 + 5 = 11
+              dth
+               11 + 5 = 16
+              recharge
+               16 + 5 = 21
+
+--------------------------------------------------
+-- 11 --
+MERGING : 
+
+MERGE : adding the files between one branch to another branch
+git merge branch_name : to merge the branches 
+
+REABSE : adding the files between one branch to another branch
+git rebase branch_name : to merge the branches 
+
+
+** NOTE: If you want to merge the files from github we need to use pull request **
+
+STASH : to hide the files whcih are not commited.
+Note : files need to be tracked but not commited.
+
+git stash     : to hide files not commited
+git stash applying  : to get stashed files
+
+Prcoess: 
+     tocuh file1
+     git stash 
+     git stash apply
+     git stash list     : to list the stashes
+     git stash clear    : to remove stashes
+     git stash pop (clear last stash)      : to remove stashes
