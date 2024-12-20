@@ -1,0 +1,105 @@
+## INTERVIEW Q ##
+
+1. What is Home path for Maven ?   --> .m2
+
+
+
+
+
+Maven : Its build tool which is given by the Apache Softwrae Foundation.
+        Build tool : the process of adding the Dependencies.
+** To create war file (fronted and backend) we use MAVEN **
+
+E.g.  Chicken Biryani
+
+        Chicken  ---->  Washing and Pieces  ---->  Masala   ---->  Biryani
+            |                    |                  |                |
+            |                    |                  |                |
+        Java Code             Compile              Test           Artifacts (Final Product)
+
+
+
+POM.XML(PROJECT OBJECT MODEL)  --> It Consist the entire information of the project.
+
+          Biryani                                    Artifact (WAR File)
+             |                                               |
+             |(Book Consist recipe of biryani)               |(POM.XML consistsof all info about product)
+             |                                               |
+            Book                                           POM.XML
+
+
+
+MAVEN : (without java we can work with MAVEN)
+its a build tool.
+main file is POM.XML (project object model & Extensible Markup Language)
+is is used to create artifact (war,jar,ear)
+it is mostly used for java-based projects.
+It was initially released on 13 July 2004
+Maven is written in Java (1.8.0)
+
+
+RAW : .java  (we can't user it)
+.java   ---->  compile  ---->   .class  ---->  .jar  ---->  package  ----> war 
+
+  
+.java   : basic raw code
+.class  : which can be executable
+.jar    : group of .class files (works for backend)
+.war    : it has frontend and backend code (FE: HTML,CSS & BE: JAVA)
+libs    : its a pre defined packages used for code
+
+
+ARTIFACTS : its the final product
+JAR : JAVA ARCHIVE
+WAR : WEB ARCHIVE
+EAR : ENTERPRISE ARCHIVE 
+
+ARCHITECTURE  :
+
+SETUP : CREATE EC-2 
+yum install git java-1.0.8-openjdk maven tree -y
+git clone <link>
+cd jenkins-java-project-git
+
+
+PLUGIN : its a small software which automates our work.  --> without installing tool we can able to work with it.
+with the plugins we can use tools without installing them
+** If you want to work with a testing tool and you dont have a testing tool in that case
+    no nweed to intsall testing tool directly we can use PLUGIN tool **
+
+GOAL : its a command used to perform task.
+MAVEN follows a lifecycle 
+
+** When you exacuting goals ensure that folder contain pom.xml file then only GOALS will execute otheriwse not **
+mvn compile        : to compile the source code
+mvn test           : to test the code
+mvn package        : to create artifact  (project directory)
+mvn intall         : to create artifact  (maven home dir .m2)
+mvn clean package  : to perform entire goals
+mvn clean          : to delete artifact
+
+
+
+maven                ant 
+pom.xml              build.xml
+life cycle           no life cycle
+procedural           declerative
+plugins              no plugins
+no scripts           scripts
+
+
+
+PROBLEMS WITHOUT MAVEN :
+1. You can not create jar file
+2. can not create project
+3. can not deploy that project
+
+
+
+WHAT IF BUILD FAILS :
+1. CHECK JAVA VERSION FOR MAVVEN
+2. CHECK POM.XML
+3. CHECK THE CODE
+
+
+
