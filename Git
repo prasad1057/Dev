@@ -2,6 +2,7 @@
 
      1. Git is which generation of VCS ?     --> 3rd
      2. What is Git and why we need to use Git ?
+               Git - Version control ssytem to track files
      3. What are the stages on Git and Explain them ?
      4. Differ between CVCS v/s DVCS ?
      5. Differ between SVN and GIT ?    --> Both are same 
@@ -14,12 +15,17 @@
                --> merge will show entire history, rebase will not.
 
      10. What is meaning of STASH and what are those commands?
-               --> to hide files whcih are not commited.   --> git stash
+               --> to hide files which are not commited.   --> git stash
 
      11. What do you know about MERGE CONFLICT ?
      12. How will you resolve CONFLICT ?   --> manually
      13. Differ MERGE vs CHERRY-PICK ?
+               --> MERGE : adding the files between one branch to another branch
+               --> CHERRY-PICK :merge only specific files from one branch to another with commit_id
+
      14. Differ GIT PUSH vs GIT PULL ?
+               --> GIT PUSH : to send code form local to GitHub
+               --> GIT PULL : to get code from GitHub to local
      15. DIFFER GIT PULL vs GIT FETCH ?
                --> Pull : whatever changes come to your local (give you changes)
                --> Fetch : only changes will shown  (show the changes)
@@ -33,9 +39,11 @@
                --> Clone : copy source code from github to git
                --> Fork :copy source code from github to github only
      19. Differ GIT REVERT vs GIT RESTORE ?
-     20. What is GIT STASH ?
-     21. What is .gitignore ?
-
+               --> GIT REVERT  : used to undo merging blw branches.
+               --> GIT RESTORE : to untracked the tracked file.
+     20. What is .gitignore ?
+               --> If you want the files but you not have to tracked them
+                    When you put a .gitignore it will never go to github
 
 
 
