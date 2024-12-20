@@ -91,7 +91,7 @@ Ex : GIT : it can store code in a multiple repository
 
 
 ROLLBACK  :  Going back to previous version of application.
-     (when current versionis not wokring then we are going to use ROLLBACK)
+     (when current version is not wokring then we are going to use ROLLBACK)
 
 
 STAGES: (GIT ARCHITECTURE)
@@ -177,7 +177,7 @@ PROCESS :
               | 
      git checkout movies
               |
-     tocuh movies{1..5}
+     touch movies{1..5}
               |
      git add movies*
               |  
