@@ -1,0 +1,20 @@
+Jenkins :
+its a CI/CD tool.
+
+CI : Continuous Integration : continuous build + continous test
+integration : adding : adding old code with new code.
+** Befor CI we have time waste and every thing is manual work. **
+** After CI  buiding and testing every thing is on single place i.e. automated and quickly. **
+
+CD : Continous Delivery    : deployment manually to production environment 
+CD : Continous Deployment  : deployment automated to production environment 
+
+PIPELINE : step by step execution of particular process
+         : Series of events interlinked wih each other 
+
+CODE  -->  BUILD  -->  TEST  --> (Check Quality) -->  DEPLOY
+
+
+
+
+
