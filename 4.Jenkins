@@ -1,6 +1,8 @@
 Jenkins :
 its a CI/CD tool.
 
+** To create CI/CD we need to have PIPELINE **
+
 CI : Continuous Integration : continuous build + continous test
 integration : adding : adding old code with new code.
 ** Befor CI we have time waste and every thing is manual work. **
@@ -15,6 +17,89 @@ PIPELINE : step by step execution of particular process
 CODE  -->  BUILD  -->  TEST  --> (Check Quality) -->  DEPLOY
 
 
+** As a Devops Eng we are going to deploy project on all ENV **
+
+                       ENV : (Server)
+                            |
+               ---------------------------- 
+               |                           |
+             PROD (LIVE ENV)            PRE-PROD/ NON-PROD
+               |                            |
+         1. PROD   : USER                 1. DEV    : DEVLOPERS
+                                          2. QA     : TESTERS
+                                          3. UAT    : CLIENT
 
 
 
+JENKINS :  8080
+         - its a free and open source tool
+         - its platform indepedent
+         - it is built on java-11
+         - KOSHUKE KAWAGUCHUI invented jenkins in SUN MICRO SYSTEM 2004
+         - inital name was hudson  --> paid version  --> Oracle bought --> free
+         - it consist lot of plugins
+         - port number for jenkins is 8080
+
+
+                           SETUP 
+                             |
+                  -----------------------
+                  |                      |
+               manually               automation
+
+
+SETUP :
+yum : Yellowdog Updater Modified
+Update : sudo yum update -y
+
+STEP-1: INSTALLING GIT JAVA-1.8.0 MAVEN 
+yum install git java-1.8.0-amazon-corretto maven -y
+
+        // STEP-1: INSTALLING GIT JAVA-1.8.0 MAVEN 
+        // yum install git java-1.8.0-openjdk maven -y
+
+STEP-2: GETTING THE REPO (jenkins.io --> download -- > redhat)
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+STEP-3: DOWNLOAD JAVA11 AND JENKINS
+sudo yum install java-17-amazon-corretto -y
+yum install jenkins -y
+update-alternatives --config java
+
+        // STEP-3: DOWNLOAD JAVA11 AND JENKINS
+        // amazon-linux-extras install java-openjdk11 -y
+        // yum install jenkins -y
+        // update-alternatives --config java
+
+
+#STEP-4: RESTARTING JENKINS (when we download service it will on stopped state)
+sudo systemctl start jenkins
+sudo systemctl status jenkins
+
+
+List out all JAVA Versions :
+update-alternatives --config java
+
+switch java versions :
+update-alternatives --config java
+
+To start Jenkins :
+sudo systemctl start jenkins
+// systemctl start jenkins.service
+
+To see status of Jenkins :
+sudo systemctl status jenkins        
+// systemctl status jenkins.service
+
+
+
+copy public ip and paste on browser like this
+public-ip:8080
+cat /var/lib/jenkins/secrets/initialAdminPassword
+install plugins and create user for login.
+
+INTEGRATION OF GIT AND MAVEN WITH JENKINS:
+NEW ITEM -- > NAME: NETFLIX JOB -- > FREE STYLE -- > OK 
+Source Code Management -- > GIT -- > https://github.com/devopsbyraham/jenkins-java-project.git
+Build Steps -- > add setp -- > Execute shell -- > save
