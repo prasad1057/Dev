@@ -77,6 +77,22 @@ update-alternatives --config java
 sudo systemctl start jenkins
 sudo systemctl status jenkins
 
+              update all
+                  |
+          install git maven
+                  |
+            git clone <link>
+                  |
+                  ls
+                  |
+           cd <folder_name>
+                  |
+            mvn clean package
+                  |
+            jenkins install
+                  |
+            jenkins start
+
 
 List out all JAVA Versions :
 update-alternatives --config java
@@ -103,3 +119,9 @@ INTEGRATION OF GIT AND MAVEN WITH JENKINS:
 NEW ITEM -- > NAME: NETFLIX JOB -- > FREE STYLE -- > OK 
 Source Code Management -- > GIT -- > https://github.com/devopsbyraham/jenkins-java-project.git
 Build Steps -- > add setp -- > Execute shell -- > save
+
+-----------------------------------------------------------
+-- 15 --
+
+
+
