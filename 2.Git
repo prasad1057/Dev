@@ -99,6 +99,12 @@ WORKING DIRECTORY : where we can write our source code.
 STAGING AREA      : we track files here.
 REPOSITORY        : where we store the tracked source code.
 
+                                   STAGES 
+                                     |
+               ----------------------------------------------
+              |                      |                      |
+       WORKING DIRECTORY          STAGING AREA           REPOSITORY
+
 
 
 WORKING WITH GIT :
@@ -106,7 +112,7 @@ create a ec-2 server
 mkdir zomato
 cd zomato
 
-yum install git -y        [yum=pkg manager, install=action, gir=pkg name, -y=yes]
+yum install git -y        [yum=pkg manager, install=action, git=pkg name, -y=yes]
 
 git -v       : to check version
 git init     : to intsall .git (local repo)   (If you dont have .git , your commands will not work )
@@ -143,7 +149,7 @@ git show commit_id
      developer write a code on the branch.
      initially branches  we create on git.
      after write source code on git we push on github.
-     Default brnach is Master.
+     Default branch is Master.
      NOTE: when we do initial commit the only default brnach will be creatd.
 
 
@@ -151,7 +157,7 @@ Developer --> Git(Movies branch) --> code --> github
 
 
 COMMANDS :
-** When you go to new brnach whatever you commited in previous brnach those brnaches are carry forward to the new brnach **
+** When you go to new brnach whatever you commited in previous brnach those brnaches are carry forward to the new branch **
 
 git branch                     : to list the branches
 git branch movies              : to create the new branch movie
@@ -164,7 +170,7 @@ git restore file1              : to restore tracked file
 git show file1                 : to show the how many commits are done  
 
 
-NOTE : to recover th deleted branch
+NOTE : to recover the deleted branch
 
 GIT PULL : it will get the branch from github to git
 git pull origin branch_name
@@ -264,15 +270,19 @@ git rebase branch_name : to merge the branches
 
 GIT REVERT: used to undo merging blw branches.
 git revert branch_name
-
+----------------------------------------------------
+git merge branch_name          : to merge the branches 
+git rebase branch_name         : to merge the branches 
+git revert branch_name         : to undo mergingblw branches
+--------------------------------------------------------
 
 ** NOTE: If you want to merge the files from github we need to use pull request **
 
-STASH : to hide the files whcih are not commited.
+STASH : to hide the files which are not commited.
 Note : files need to be tracked but not commited.
 
-git stash     : to hide files not commited
-git stash applying  : to get stashed files
+git stash              : to hide files not commited
+git stash applying     : to get stashed files
 
 Prcoess: 
      tocuh file1
