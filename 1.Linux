@@ -31,14 +31,23 @@ SERVER : COMPUTER
 -- 04 --
 
 OS = USED TO COMMUNICATE WITH SERVERS / SYSTEMS
-TYPES :
-1. Windows
-2. Linux
-3. IOS / MACOS
 
-MODES :
-1. GUI = Graphical User Interface
-2. CLI = Command Line Interface
+                              OS (Operating System)
+                                        |
+                          --------------------------------
+                          |               |               |
+                       Wndows           Linux           IOS / MACOS
+
+
+
+                                        MODES 
+                                          |
+                            ------------------------------
+                            |                            |
+                           GUI                          CLI
+               (Graphical User Interface)            ( Command Line Interface )        
+
+
 
 COMMANDS :
 sudo -i                   : to switch from ec2-user to root-user
@@ -66,8 +75,8 @@ enter ctrl d          : to save and exit from file
 cp file1 file2        : copies the content from file1 to file2
 mv file1 file2        : to rename file1 to file2
 rm file1              : to remove a file
-rm file1 -f           :to remove a file forcefully
-rm * -f               :to remove all files forcefully
+rm file1 -f           : to remove a file forcefully
+rm * -f               : to remove all files forcefully
 touch file{1..100}    : to create 100 files at a time
 cat file1 >>file2     : to copy content from file1 to file2 (without overriding)
 ========================================================================
@@ -87,19 +96,24 @@ wc  : to show lines, words & characters
 -------------------------------------------------------
 -- 06 --
 
-EDITORS : to edit the files
-Types:
-1. VIM / vi
-2. nano
+                              EDITORS : to edit the files
+                                        |
+                              ----------------------
+                              |                    |
+                           VIM / vi               nano
+
 
 i          : to insert the content 
 ecc        : to come out from insert mode
 
 
 There are 3 modes in VIM :
-1. command mode 
-2. insert mode
-3. save mode
+                                   VIM (text-editor)
+                                         |
+                       ----------------------------------------
+                       |                   |                  |
+                    command mode        insert mode          save mode
+
 
 3. SAVE MODE :
 :w          : to save
