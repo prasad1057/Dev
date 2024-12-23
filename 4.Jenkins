@@ -139,8 +139,40 @@ create a CI job --> Configure --> This project is parameterized --> choice --> n
 ** For Testing ENV we used 8090 port no. **
 ** ANd for Production ENV we used 8080 port no. **
 
-To change the port number : 
+PORT CHANGING : 
 vim /usr/lib/systemd/system/jenkins.service
+line number 67 (8080 = 8090)
+systemctl daemon-reload
+systemctl restart jenkins.service
+systemctl status jenkins.service 
+
+PASSWORDLESS LOGIN :
+vim /var/lib/Jenkins/config.xml    (config.xml = jenkins configuration file)
+line number 7 (true = false)
+systemctl restart jenkins.service
+
+ ** Jenkins can only run by deafulty 2 items concurrently at a single time **
+CHANGING BULD LIMITS :
+dashboard --> manage jenkins --> nodes --> built-in nodes --> configure --> number of exectors - 3 --> save 
+
+
+NOTE :
+when we stop and start server your ip will change and the services inside server also stop
+
+** Elastic Ip is never going to change, once you give the ip address it si stick thier but it is paid one **
+
+TROUBLESHOOTING TECHNIQUES :
+
+1. JENKINS SERVER CRASHED :
+stop server --> start server --> restart service 
+
+2. JENKINS IS NOT GETTING ON 8080 :
+change port number --> vim /usr/lib/systemd/system/jenkins.service --> line 67 (change port no) --> reload daemon --> reload jenkins
+
+3. If job(project) will Delete
+Dashboard --> Manage Jenkins --> Plugins --> available plugins --> (Search) Job Configuration Histoy --> install --> go back to top page 
+now try to delete job --> Job Config History --> show deleted jobs  --> restore it
+
 
 
 
