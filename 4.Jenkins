@@ -123,5 +123,26 @@ Build Steps -- > add setp -- > Execute shell -- > save
 -----------------------------------------------------------
 -- 15 --
 
+** NOTE: Without passing a parameter we cano build a job **
+
+PARAMETERS : used to pass input for the jobs
+
+1. choice : pass single inputs
+2. string : to pass multiple inputs (rarely used)
+3. multi line : to pass multiple input on multiple lines
+4. bool : true or false
+5. file : to build files
+
+1. choice : when we have multiple options we can select one  (mostly used)
+create a CI job --> Configure --> This project is parameterized --> choice --> name: env choice : dev,test,uat,prod --> Save 
+
+** For Testing ENV we used 8090 port no. **
+** ANd for Production ENV we used 8080 port no. **
+
+To change the port number : 
+vim /usr/lib/systemd/system/jenkins.service
+
+
+
 
 
