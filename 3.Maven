@@ -49,10 +49,15 @@ RAW : .java  (we can't user it)
 libs    : its a pre defined packages used for code
 
 
-ARTIFACTS : its the final product
-JAR : JAVA ARCHIVE
-WAR : WEB ARCHIVE
-EAR : ENTERPRISE ARCHIVE 
+
+                                ARTIFACTS : its the final product
+                                        |
+                 --------------------------------------------------
+                |                        |                        |
+        JAR : JAVA ARCHIVE           WAR : WEB ARCHIVE        EAR : ENTERPRISE ARCHIVE 
+
+
+
 
 ARCHITECTURE  :
 
@@ -65,7 +70,7 @@ cd jenkins-java-project-git
 PLUGIN : its a small software which automates our work.  --> without installing tool we can able to work with it.
 with the plugins we can use tools without installing them
 ** If you want to work with a testing tool and you dont have a testing tool in that case
-    no nweed to intsall testing tool directly we can use PLUGIN tool **
+    no need to intsall testing tool directly we can use PLUGIN tool **
 
 GOAL : its a command used to perform task.
 MAVEN follows a lifecycle 
@@ -79,6 +84,7 @@ mvn clean package  : to perform entire goals
 mvn clean          : to delete artifact
 
 
+---------------------------------------------------
 
 maven                ant 
 pom.xml              build.xml
@@ -87,14 +93,14 @@ procedural           declerative
 plugins              no plugins
 no scripts           scripts
 
-
+--------------------------------------
 
 PROBLEMS WITHOUT MAVEN :
 1. You can not create jar file
 2. can not create project
 3. can not deploy that project
 
-
+--------------------------------------
 
 WHAT IF BUILD FAILS :
 1. CHECK JAVA VERSION FOR MAVVEN
