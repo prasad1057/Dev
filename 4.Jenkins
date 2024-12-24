@@ -203,6 +203,7 @@ CRONJOB : used to schedule the works on jenkins.
 cron syntax is used to work with cron jobs
 cron syntax (5star)  : * * * * *
 each star will have space in between
+NOTE : use server timezone (UTC)
 
 *         : minutes
 *         : hours
@@ -224,6 +225,9 @@ i want to build item at 8.15 on 25-12-2024
 
 ** Server will never follow indian timeline , it follow UTC timeline **
 
+CREATE A CI JOB : Build Trigger --> Build --> periodically --> * * * * * --> save
+
+LIMITATIONS  :
 
 
 
