@@ -1,3 +1,14 @@
+## INERVIEW Q ##
+
+1. What is CRONJOB exaplin with example ?
+
+
+
+
+
+
+
+
 Jenkins :
 its a CI/CD tool.
 
@@ -123,6 +134,18 @@ Build Steps -- > add setp -- > Execute shell -- > save
 -----------------------------------------------------------
 -- 15 --
 
+Process for Automation :
+
+                  copy script from github (jenkins.sh)
+                                 |
+                  make file in server (vim jenkins.sh)
+                                 |
+                  paste script on jenkins.sh file  --> save
+                                 |
+                  run command --> sh jenkins.sh
+                  
+------------------------------------------------------------
+
 ** NOTE: Without passing a parameter we cano build a job **
 
 PARAMETERS : used to pass input for the jobs
@@ -172,6 +195,37 @@ change port number --> vim /usr/lib/systemd/system/jenkins.service --> line 67 (
 3. If job(project) will Delete
 Dashboard --> Manage Jenkins --> Plugins --> available plugins --> (Search) Job Configuration Histoy --> install --> go back to top page 
 now try to delete job --> Job Config History --> show deleted jobs  --> restore it
+
+----------------------------------------------------------------------------------------------------------
+-- 16 --
+
+CRONJOB : used to schedule the works on jenkins.
+cron syntax is used to work with cron jobs
+cron syntax (5star)  : * * * * *
+each star will have space in between
+
+*         : minutes
+*         : hours
+*         : date
+*         : month
+*         : day (0=Sun, 1Mmon, 2=Tue, 3=Wed, 4=Thur, 5=Fri, 6=Sat)
+
+** To generate this cron there is website cron tab = https://crontab-generator.org/  **
+
+for e.g
+i want to build item at 8.15 on 25-12-2024
+1.          8.15  25-12-2024
+         
+           15 8 25 12 3(Wed)   
+
+2.         2.30  26-12-2024
+
+          30 2 26 12 4(Thur)
+
+** Server will never follow indian timeline , it follow UTC timeline **
+
+
+
 
 
 
