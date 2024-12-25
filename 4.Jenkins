@@ -1,8 +1,9 @@
 ## INERVIEW Q ##
 
 1. What is CRONJOB exaplin with example ?
-
-
+2. Differ CRONJOB vs POLLSCM ?
+         --> CRONJOB : build job without checking the code is change or not
+         --> POLLSCM : build the job  if the developer change code at particular time
 
 
 
@@ -11,6 +12,7 @@
 
 Jenkins :
 its a CI/CD tool.
+Default workspace for Jenkins : /var/lib/jenkins/workspace/job-1
 
 ** To create CI/CD we need to have PIPELINE **
 
@@ -225,14 +227,40 @@ i want to build item at 8.15 on 25-12-2024
 
 ** Server will never follow indian timeline , it follow UTC timeline **
 
-CREATE A CI JOB : Build Trigger --> Build --> periodically --> * * * * * --> save
+CREATE A CI JOB : Build Trigger --> Build periodically --> * * * * * --> save
 
 LIMITATIONS  :
+will not check the code is changed or not.
 
+---------------------------------------------------------
+POLLSCM : it will build when code is changes only.
+Note : need to set the time limit.
 
+CREATE A CI JOB : Build Trigger --> Poll Scm --> * * * * * --> save
 
+LIMITATIONS : 
+for e.g - devolper want build at 9am and after developer changes code at 7am so developer should wait for 2 hr to build
+: time waste
+to overcome this we have concept that is Webhooks.
+---------------------------------------------------------
+WEBHOOKS : it will trigger the build the moment we commit the code. 
+         : the moment you commit the source code the build is trigger automatically 
 
+github --> repo --> setting --> webhooks --> add webhook --> Payload url : http://16.16.64.193:8090/github-webhook/ --> Content type : application/json --> Add webhook 
+                                                                                          |
+                                                                                 Jenkins url/github-webhook
 
+Jenkins Dashboard --> create a CI job --> Build triggers --> Github hook trigger for GITScm polling -->save
 
+---------------------------------------------------------
+THROTTLE BUILD : to restrict number of builds per interval (interval can be minutes, hours anythings)
 
+create a normal job --> Throttle builds --> Number of Build : 3 --> time period : hours --> save
+make builds and test
 
+---------------------------------------------------------
+REMOTE TRIGGERING :
+CREATE JOB --> Build triggers --> Triggwe builds remotely --> Authentication Token : prasad --> save
+copy the url and change values and buld it
+
+---------------------------------------------------------
