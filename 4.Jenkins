@@ -90,9 +90,10 @@ update-alternatives --config java
 sudo systemctl start jenkins
 sudo systemctl status jenkins
 
-              update all
+Process : 
+              update all (sudo yum update -y)
                   |
-          install git maven
+          install git maven (sudo yum install git maven -y)
                   |
             git clone <link>
                   |
@@ -102,9 +103,12 @@ sudo systemctl status jenkins
                   |
             mvn clean package
                   |
-            jenkins install
+         sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+         sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
                   |
-            jenkins start
+            jenkins install (sudo yum install jenkins -y)
+                  |
+            jenkins start (sudo systemctl start jenkins.service)
 
 
 List out all JAVA Versions :
@@ -200,6 +204,7 @@ now try to delete job --> Job Config History --> show deleted jobs  --> restore 
 
 ----------------------------------------------------------------------------------------------------------
 -- 16 --
+----------------------------------------------------------------------------------------------------------
 
 CRONJOB : used to schedule the works on jenkins.
 cron syntax is used to work with cron jobs
@@ -264,3 +269,10 @@ CREATE JOB --> Build triggers --> Triggwe builds remotely --> Authentication Tok
 copy the url and change values and buld it
 
 ---------------------------------------------------------
+-- 17 --
+---------------------------------------------------------
+
+
+
+
+
