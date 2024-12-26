@@ -323,4 +323,53 @@ SONAR CUBE TOOL : Check qulaity of code
 -- 18 --
 ---------------------------------------------------------
 
+chkconfig jenkins on : when you used this command after whenever you stop and start server 
+                       you dont need to restart the services automatically it restarted.
+
+PIPELINE : step by step execution of particular process
+         : series of events interlinked with each other
+pipelines are syntax based
+we use groovy language to write pipeline
+its a DSL (Domain Specific Lnaguage)
+it gives the visualization of process exectiion. * Freestyle cant give you visualization *
+logs : events happened
+
+                           PIPELINE
+                              |
+                  -----------------------------
+                 |                            |
+            SCRIPTED                      DECLARATIVE  (Most Prefer)       
+
+
+         shortcut of PIPELINE :
+                  P : pipneline {}
+                  A : agent any
+                  S : stages {}
+                  S : stage() {}
+                  S : steps {}
+
+DECLARATIVE PIPELINE : 
+
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
