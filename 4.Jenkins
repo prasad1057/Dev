@@ -5,6 +5,8 @@
          --> CRONJOB : build job without checking the code is change or not
          --> POLLSCM : build the job  if the developer change code at particular time
 
+3. What is LINKED JOB ?
+         --> Its a job used to linked with other job.
 
 
 
@@ -266,13 +268,59 @@ make builds and test
 ---------------------------------------------------------
 REMOTE TRIGGERING :
 CREATE JOB --> Build triggers --> Triggwe builds remotely --> Authentication Token : prasad --> save
-copy the url and change values and buld it
+copy the url and change values and build it
 
 ---------------------------------------------------------
 -- 17 --
 ---------------------------------------------------------
 
+MASTER AND SLAVE (worker)
+it is used to distribute the builds.
+it reduce the load on jenkins server.
+communication between master and slave is SSH.
+Here we need to install agent (java-11).
+slave can use any platform.
+label = way of assigning work for slave.
 
+SETUP : 
 
+STEP 1 : create a server and install java-11
+   sudo yum install java-17-amazon-corretto -y
+// amazon-linux-extras install java-openjdk11 -y
+
+STEP 2 : SETUP THE SLAVE SERVER 
+Dashboard --> Manage Jenkins --> Nodes & Clouds --> New Node --> nodename : abc --> save
+
+CONFIGURATION OF SLAVE :
+
+Number of executors : 3 (Number of parallel builds)
+Remote root directory: /tmp (The place where our output is stored on slave server)
+Labels : slave1 (place the output in a particular slave)
+usage : last option
+Launch method : last option
+Host : (your PRIVATE IP address)
+Credentials --> add --> jenkins --> Kind : ssh username with privatekey --> username : ec2-user
+privatekey : pemfile of server --> save --> 
+Host Key Verification Strategy : last option
+
+DASHBOARD --> JOB --> CONFIGURE --> RESTRICT WHERE THIS JOB RUN --> LABEL : slave1 --> SAVE
+
+---------------------------------------------------------
+
+LINKED JOBS: (rarely used)
+         : here jobs are linked with each other.
+         : if I run first job this first job will trigger another job that linked it. 
+types:
+1. Up stream         : first job
+2. Down stream       : triggered job (second job)
+
+create a job2
+job1 -- > configuration -- > post build actions -- > build other projects -- > name of job2 -- > save
+
+SONAR CUBE TOOL : Check qulaity of code
+
+---------------------------------------------------------
+-- 18 --
+---------------------------------------------------------
 
 
