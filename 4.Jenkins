@@ -7,7 +7,8 @@
 
 3. What is LINKED JOB ?
          --> Its a job used to linked with other job.
-
+4. How the services get restart itself ?
+	--> commnad : chkconfig jenkins on
 
 
 
@@ -519,6 +520,8 @@ su - sonar
          run commnad : sh sonar.sh
                   |
          run command : sh /opt/sonarqube-8.9.6.50800/bin/linux/sonar.sh start
+		  |
+	copy public ip address with sonar ip (9000)
 ---------------------------------------------------------
 
 after login -- > add project -- > manual -- > project key : netflix-1 -- > setup -- > token : netflix -- > generate -- > continue -- > maven -->copy the code (4 lines)
@@ -569,10 +572,24 @@ pipeline {
         label 'slave1'
     } 
 
+---------------------------------------------------------
+-- 19 --
+---------------------------------------------------------
+
+VARIABLES :
+which can change and hold the value (assigning values)
+
+					VARIABLES
+					    |
+			---------------------------------------------------
+		       |                                                  |
+		USER DEFINED (static variables)			    JENKINS ENV
+	(it will remian as it is until you change)       	  (var are going to change as per build)
+		     |
+	    -------------------------
+	   |                        |
+	LOCAL			 GLOBAL
+(we can define inside job)     (we can define outside job)
 
 
-
-
-
-
-
+ 
