@@ -334,6 +334,8 @@ its a DSL (Domain Specific Lnaguage)
 it gives the visualization of process exectiion. * Freestyle cant give you visualization *
 logs : events happened
 
+CODE  -->  BUILD  -->  TEST  -->  ARTIFACT  -->  DEPLOYMENT 
+
                            PIPELINE
                               |
                   -----------------------------
@@ -351,20 +353,221 @@ logs : events happened
 DECLARATIVE PIPELINE : 
 
          
+SINGLE STAGE:
+
+pipeline {
+    agent any
+    
+    stages{
+        stage('abc') {
+            steps {
+                sh 'touch file2'
+            }
+        }
+    }
+}
+---------------------------------------------------------
+MULTI STAGE:
+
+pipeline {
+    agent any
+    
+    stages{
+        stage('abc') {
+            steps {
+                sh 'touch file1'
+            }
+        }
+	 stage('abc') {
+            steps {
+                sh 'touch file2'
+            }
+        }
+    }
+}
+---------------------------------------------------------
+CI PIPELINE:
+
+pipeline {
+    agent any 
+    
+    stages{
+        stage('checkout') {
+            steps {
+                git 'https://github.com/devopsbyraham/jenkins-java-project.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+        stage('test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('artifact') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+    }
+}
+---------------------------------------------------------
+PIPELINE AS A CODE:
+executing multiple commands or multiple actions on a single stage.
+
+pipeline {
+    agent any
+    
+    stages {
+        stage('one') {
+            steps {
+                git 'https://github.com/devopsbyraham/jenkins-java-project.git'
+                sh 'mvn compile'
+                sh 'mvn test'
+                sh 'mvn clean package'
+            }
+        }
+    }
+}
+---------------------------------------------------------
+ PIPELINE AS A CODE OVER MULTI STAGE:
+executing multiple commands or multiple actions on a multiple stage.
 
 
+pipeline {
+    agent any
+    
+    stages {
+        stage('one') {
+            steps {
+                git 'https://github.com/devopsbyraham/jenkins-java-project.git'
+                sh 'mvn compile'
+            }
+        }
+        stage('two') {
+            steps {
+                sh 'mvn test'
+                sh 'mvn clean package'
+            }
+        }
+    }
+}
+---------------------------------------------------------
+PIPELINE AS A CODE OVER SINGLE-SHELL:
+executing multiple commands over a single shell.
 
 
+pipeline {
+    agent any
+    
+    stages {
+        stage('one') {
+            steps {
+                git 'https://github.com/devopsbyraham/jenkins-java-project.git'
+                sh '''
+                mvn compile
+                mvn test
+                mvn package
+                mvn install
+                mvn clean package
+                '''
+            }
+        }
+    }
+}
+---------------------------------------------------------
+
+wget : downloads files from internet
 
 
+SONARQUBE:
+its a tool used to check the code quality.
+it covers the bugs, vulnerabilities, code duplications, code smells.
+its supports 20+ programming langauges.
+we have both free and paid version.
 
+port: 9000
+req (2+ vCPUs and 4+ GB RAM) : t2 medium, t3 medium, T4g.medium 
+dependency: java-11
 
+---------------------------------------------------------
+SETUP:
 
+Script :
+#! /bin/bash
+#Launch an instance with 9000 and t2.medium
+cd /opt/
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.6.50800.zip
+unzip sonarqube-8.9.6.50800.zip
+amazon-linux-extras install java-openjdk11 -y
+useradd sonar
+chown sonar:sonar sonarqube-8.9.6.50800 -R
+chmod 777 sonarqube-8.9.6.50800 -R
+su - sonar
 
+#run this on server manually
+#sh /opt/sonarqube-8.9.6.50800/bin/linux/sonar.sh start
+#echo "user=admin & password=admin"
+---------------------------------------------------------
+         make a file (vim sonar.sh)
+                  |
+         copy the above script and paste it --> save
+                  |
+         run commnad : sh sonar.sh
+                  |
+         run command : sh /opt/sonarqube-8.9.6.50800/bin/linux/sonar.sh start
+---------------------------------------------------------
 
+after login -- > add project -- > manual -- > project key : netflix-1 -- > setup -- > token : netflix -- > generate -- > continue -- > maven -->copy the code (4 lines)
+---------------------------------------------------------
+copy paste the code on pipeline:
 
+pipeline {
+    agent any 
+    
+    stages{
+        stage('checkout') {
+            steps {
+                git 'https://github.com/devopsbyraham/jenkins-java-project.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+        stage('test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('code quality') {
+            steps {
+                sh '''
+                mvn sonar:sonar \
+                  -Dsonar.projectKey=netflix \
+                  -Dsonar.host.url=http://13.38.32.159:9000 \
+                  -Dsonar.login=3f017506d83cd334fba02ecf9db706c429ab5d38
+                '''
+            }
+        }
+        stage('artifact') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+    }
+}
+---------------------------------------------------------
+TO EXCECUTE ON SLAVE
 
-
+pipeline {
+    agent {
+        label 'slave1'
+    } 
 
 
 
