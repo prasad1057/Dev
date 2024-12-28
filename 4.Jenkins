@@ -547,7 +547,7 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('code quality') {
+        stage('code quality') {			
             steps {
                 sh '''
                 mvn sonar:sonar \
@@ -592,4 +592,89 @@ which can change and hold the value (assigning values)
 (we can define inside job)     (we can define outside job)
 
 
+pipeline {
+    agent any 
+    
+    environment {
+        name = "raham"
+        loc = "hyderabad"
+    }
+    stages {
+        stage('one') {
+            steps {
+                echo "hai all my name is $name and im from $loc"
+                sh 'env'
+            }
+        }
+    }
+}
+
  
+global variables :
+Dashboard --> Manage Jenkins --> Syatem --> Environment variables
+
+sh 'env'	: to print all the ENV variables 
+
+---------------------------------------------------------
+
+POSY BUILD ACTIONS :
+action we perform after the build
+
+						POSY BUILD ACTIONS
+							|
+				--------------------------------------------------------
+			        |                           |                           |
+                           always                         success                     failure
+
+always    : if build failed or success it will run the post actions.
+success   : it will execute post actions when the build is successful 
+failure   : it will execute post actions only when the build is failed
+
+
+pipeline {
+    agent any 
+    
+    environment {
+        name = "raham"
+        loc = "hyderabad"
+    }
+    stages {
+        stage('one') {
+            steps {
+                s 'env'
+            }
+        }
+    }
+    post {
+        always {
+            echo "the build is done"
+        }
+    }
+}
+---------------------------------------------------------
+
+RBAC: ROLE BASE ACCESS CONTROL
+
+in real time to restrict the access for jenkins console we use rbac.
+with rbac we can give set of limited permissions for user.
+
+1. user:
+dashboard -- > manage jenkins -- > users -- > create user (ramesh, suresh)
+
+2. Plugin: 
+Dashboard -- > Manage Jenkins -- >Plugins -- >available plugin  -- >Role-based Authorization Strategy -- >install
+
+3. configure:
+Dashboard -- > Manage Jenkins -- >security -- > security -- > Authorization -- > Role-based Authorization -- > save
+
+4. manage and assign roles
+
+Dashboard -- > Manage Jenkins -- >Manage and Assign Roles -- > Manage Role
+role1: fresher -- > read
+role2: exp -- > admin
+
+ASSIGN ROLES
+
+---------------------------------------------------------
+-- 20 --
+---------------------------------------------------------
