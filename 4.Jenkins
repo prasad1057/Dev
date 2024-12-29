@@ -12,7 +12,7 @@
 
 
 
-
+------------------------------------------------------------------------------------------------------------------
 Jenkins :
 its a CI/CD tool.
 Default workspace for Jenkins : /var/lib/jenkins/workspace/job-1
@@ -140,7 +140,7 @@ NEW ITEM -- > NAME: NETFLIX JOB -- > FREE STYLE -- > OK
 Source Code Management -- > GIT -- > https://github.com/devopsbyraham/jenkins-java-project.git
 Build Steps -- > add setp -- > Execute shell -- > save
 
------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
 -- 15 --
 
 Process for Automation :
@@ -153,7 +153,7 @@ Process for Automation :
                                  |
                   run command --> sh jenkins.sh
                   
-------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------
 
 ** NOTE: Without passing a parameter we cano build a job **
 
@@ -205,9 +205,9 @@ change port number --> vim /usr/lib/systemd/system/jenkins.service --> line 67 (
 Dashboard --> Manage Jenkins --> Plugins --> available plugins --> (Search) Job Configuration Histoy --> install --> go back to top page 
 now try to delete job --> Job Config History --> show deleted jobs  --> restore it
 
-----------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 -- 16 --
-----------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 
 CRONJOB : used to schedule the works on jenkins.
 cron syntax is used to work with cron jobs
@@ -240,7 +240,7 @@ CREATE A CI JOB : Build Trigger --> Build periodically --> * * * * * --> save
 LIMITATIONS  :
 will not check the code is changed or not.
 
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 POLLSCM : it will build when code is changes only.
 Note : need to set the time limit.
 
@@ -250,7 +250,7 @@ LIMITATIONS :
 for e.g - devolper want build at 9am and after developer changes code at 7am so developer should wait for 2 hr to build
 : time waste
 to overcome this we have concept that is Webhooks.
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 WEBHOOKS : it will trigger the build the moment we commit the code. 
          : the moment you commit the source code the build is trigger automatically 
 
@@ -260,13 +260,13 @@ github --> repo --> setting --> webhooks --> add webhook --> Payload url : http:
 
 Jenkins Dashboard --> create a CI job --> Build triggers --> Github hook trigger for GITScm polling -->save
 
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 THROTTLE BUILD : to restrict number of builds per interval (interval can be minutes, hours anythings)
 
 create a normal job --> Throttle builds --> Number of Build : 3 --> time period : hours --> save
 make builds and test
 
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 REMOTE TRIGGERING :
 CREATE JOB --> Build triggers --> Triggwe builds remotely --> Authentication Token : prasad --> save
 copy the url and change values and build it
@@ -306,7 +306,7 @@ Host Key Verification Strategy : last option
 
 DASHBOARD --> JOB --> CONFIGURE --> RESTRICT WHERE THIS JOB RUN --> LABEL : slave1 --> SAVE
 
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 
 LINKED JOBS: (rarely used)
          : here jobs are linked with each other.
@@ -320,9 +320,9 @@ job1 -- > configuration -- > post build actions -- > build other projects -- > n
 
 SONAR CUBE TOOL : Check qulaity of code
 
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 -- 18 --
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 
 chkconfig jenkins on : when you used this command after whenever you stop and start server 
                        you dont need to restart the services automatically it restarted.
@@ -367,7 +367,7 @@ pipeline {
         }
     }
 }
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 MULTI STAGE:
 
 pipeline {
@@ -386,7 +386,7 @@ pipeline {
         }
     }
 }
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 CI PIPELINE:
 
 pipeline {
@@ -415,7 +415,7 @@ pipeline {
         }
     }
 }
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 PIPELINE AS A CODE:
 executing multiple commands or multiple actions on a single stage.
 
@@ -433,7 +433,7 @@ pipeline {
         }
     }
 }
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
  PIPELINE AS A CODE OVER MULTI STAGE:
 executing multiple commands or multiple actions on a multiple stage.
 
@@ -456,7 +456,7 @@ pipeline {
         }
     }
 }
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 PIPELINE AS A CODE OVER SINGLE-SHELL:
 executing multiple commands over a single shell.
 
@@ -479,7 +479,7 @@ pipeline {
         }
     }
 }
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 
 wget : downloads files from internet
 
@@ -494,7 +494,7 @@ port: 9000
 req (2+ vCPUs and 4+ GB RAM) : t2 medium, t3 medium, T4g.medium 
 dependency: java-11
 
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 SETUP:
 
 Script :
@@ -512,7 +512,7 @@ su - sonar
 #run this on server manually
 #sh /opt/sonarqube-8.9.6.50800/bin/linux/sonar.sh start
 #echo "user=admin & password=admin"
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
          make a file (vim sonar.sh)
                   |
          copy the above script and paste it --> save
@@ -522,10 +522,10 @@ su - sonar
          run command : sh /opt/sonarqube-8.9.6.50800/bin/linux/sonar.sh start
 		  |
 	copy public ip address with sonar ip (9000)
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 
 after login -- > add project -- > manual -- > project key : netflix-1 -- > setup -- > token : netflix -- > generate -- > continue -- > maven -->copy the code (4 lines)
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 copy paste the code on pipeline:
 
 pipeline {
@@ -564,7 +564,7 @@ pipeline {
         }
     }
 }
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 TO EXCECUTE ON SLAVE
 
 pipeline {
@@ -572,9 +572,9 @@ pipeline {
         label 'slave1'
     } 
 
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 -- 19 --
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 
 VARIABLES :
 which can change and hold the value (assigning values)
@@ -615,9 +615,9 @@ Dashboard --> Manage Jenkins --> Syatem --> Environment variables
 
 sh 'env'	: to print all the ENV variables 
 
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 
-POSY BUILD ACTIONS :
+POST BUILD ACTIONS :
 action we perform after the build
 
 						POSY BUILD ACTIONS
@@ -651,7 +651,7 @@ pipeline {
         }
     }
 }
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 
 RBAC: ROLE BASE ACCESS CONTROL
 
@@ -675,6 +675,138 @@ role2: exp -- > admin
 
 ASSIGN ROLES
 
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
 -- 20 --
----------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+TOMCAT SETUP : 
+
+wget <link>	: to download anything from the internet to your server
+
+------------------------------------------------------------------------------------------------------------------
+TOMCAT SETUP:
+1. // wget http://dlcdn.apache.org/tomcat/tomcat-9/v9.0.80/bin/apache-tomcat-9.0.80.tar.gz
+	wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.80/bin/apache-tomcat-9.0.80.tar.gz
+2. tar -zxvf apache-tomcat-9.0.80.tar.gz
+3. vim apache-tomcat-9.0.80/conf/tomcat-users.xml
+
+  <role rolename="manager-gui"/>
+  <role rolename="manager-script"/>
+  <user username="tomcat" password="karan123" roles="manager-gui, manager-script"/>
+
+4. vim apache-tomcat-9.0.80/webapps/manager/META-INF/context.xml (delete 21,22)
+5. sh apache-tomcat-9.0.80/bin/startup.sh
+
+public-ip slave:8080
+manager app -- > usrername and passowd
+
+Download pluguin -- > Deploy to container : this is to deploy on tomcat
+------------------------------------------------------------------------------------------------------------------
+dlcdn.apache.org/tomcat --> tomcat 9 --> goto tomcat-9 --> latest version --> bin --> tomcat.tar.gz (copy)
+// wget http://dlcdn.apache.org/tomcat/tomcat-9/v9.0.80/bin/apache-tomcat-9.0.80.tar.gz
+	wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.80/bin/apache-tomcat-9.0.80.tar.gz
+--> to unzip(untaring) give commnad : tar -zxvf apache-tomcat-9.0.80.tar.gz
+--> after this go to end of the file copy the below three lines and paste and make changes  --> vim apache-tomcat-9.0.80/conf/tomcat-users.xml
+--> vim apache-tomcat-9.0.80/webapps/manager/META-INF/context.xml  (goto line number 21 &22 and delete it)
+-->  apache-tomcat-9.0.80/bin/startup.sh  (to start the tomcat)
+--> public-ip slave:8080  (give pulicip of slave)
+--> manager app -- > usrername and passowd
+-- > Download plugin -- > Deploy to container : this is to deploy on tomcat
+------------------------------------------------------------------------------------------------------------------
+Dashboard
+Manage Jenkins
+Credentials
+System
+Global credentials (unrestricted)
+add credentials -- > username and password -- > save
+--> copy the ID and paste it on somwhere else
+	: credentialsId: 'a3f384b0-0de7-4b62-9800-24043d1d135d'
+
+------------------------------------------------------------------------------------------------------------------
+
+		downloading
+		   |
+		untaring
+		   |
+		creating users and roles
+		   |
+		deleting lines
+		   |
+		starting tomcat
+------------------------------------------------------------------------------------------------------------------
+		TO CHANGE PORT NUMBER OF TOMCAT : 
+		vim /root/apache-tomcat-9.0.80/conf/server.xml  (line number 67)
+				|
+		SHUTDOWN :
+		sh /root/apache-tomcat-9.0.80/bin/shutdown.sh
+				|
+		START :
+		sh /root/apache-tomcat-9.0.80/bin/startup.sh
+------------------------------------------------------------------------------------------------------------------
+pipeline {
+    agent {
+        label 'peko'
+    }
+    
+    stages {
+        stage('checkout') {
+            steps {
+               git branch: 'main', url: 'https://github.com/chiklu1508/FedExProjectMar13.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+        stage('test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('code quality') {
+            steps {
+                sh '''
+                   mvn sonar:sonar \
+                     -Dsonar.projectKey=project-netflix \
+                     -Dsonar.host.url=http://16.171.224.188:9000 \
+                     -Dsonar.login=d6f1e871bb158abf3a589edc129b603cd83a49fa
+                '''
+            }
+        }
+        stage('artifact') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('deploy') {
+            steps {
+                deploy adapters:[
+                    tomcat9(
+                        credentialsId: 'aeaa4e5f-7e10-415d-bf4f-e7d5eb3b19b1',
+                        path: '',
+                        url: 'http://13.60.186.47:8080/'
+                        )
+                    ],
+                    contextPath: 'AVAGERS',
+                    war: 'target/*.war'
+            }
+        }
+    }
+}
+------------------------------------------------------------------------------------------------------------------
+
+						TROUBLESHOOTING TECHNIQUES
+								|
+			---------------------------------------------------------------------------------------
+		       |                                                |                                     |
+		SERVER LEVEL                                       JOB LEVEL                             CODE LEVEL
+		       |                                                |                                   
+        A. CONSOLE OP                                         A. REPO AND BRANCH CONFIG master-main branch)
+        B. MAVEN & JAVA (maven support java versions)         B. SYNTAX
+        C. DEPENDENCY MISTAKE   (GIT tool)                    C. PLUGINS
+        D. CPU & MEMEORY  (enhance t2 medium to t2 large)
+
+
+------------------------------------------------------------------------------------------------------------------
+OFFICIAL DOCUMENTATION FOR MAVEN : 
+https://www.baeldung.com/maven
