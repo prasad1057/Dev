@@ -1,1 +1,12 @@
-Ansible :
+Ansible :  
+
+
+
+configuration   : hardware and software properties of server (CPU,MEMORY,OS)
+management      : what are packages going to install (UPDATE,DELETE,INSTALL)
+
+ all the following process becomes automated eith help of Ansible
+      SERVER
+      SOFTWARE INSTALLATION
+      TOMCAT SETUP
+      DEPLOYMENT 
