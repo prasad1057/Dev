@@ -4,7 +4,7 @@ Ansible :
  SERVER --> SOFTWARE INSTALLATION --> TOMCAT SETUP --> DEPLOYMENT 
 
 its a free and opensource tool.
-its an it engine whcih automates from server creation to deployment.
+its an it engine which automates from server creation to deployment.
 its is also called as configuration management tool.
 
 configuration   : hardware and software properties of server (CPU,MEMORY,OS)
@@ -17,3 +17,12 @@ it is platform independent.
 ansible works with YAML language.
 ansible dependency is python.
 GUI for ansible is Ansible-Tower.
+ansible is agentless.
+
+SSH protocol     : to connect two servers 
+
+PLAYBOOK  : it is file which consist ansible code.
+          : its a file which we are write the code to intsall softwares and deployment even the server creation.
+          : If you want to any kind of work in ansible you need to write PLAYBOOK.
+
+inventory file   : worker node information stored
