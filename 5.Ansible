@@ -1,12 +1,19 @@
 Ansible :  
+ 
+ all the following process becomes automated with help of Ansible
+ SERVER --> SOFTWARE INSTALLATION --> TOMCAT SETUP --> DEPLOYMENT 
 
-
+its a free and opensource tool.
+its an it engine whcih automates from server creation to deployment.
+its is also called as configuration management tool.
 
 configuration   : hardware and software properties of server (CPU,MEMORY,OS)
 management      : what are packages going to install (UPDATE,DELETE,INSTALL)
 
- all the following process becomes automated eith help of Ansible
-      SERVER
-      SOFTWARE INSTALLATION
-      TOMCAT SETUP
-      DEPLOYMENT 
+ansible is invented bt Maichel dehaan in 2012. (free and opensource)
+ansible is taken by RedHat (both free and paid versions)
+We have both free and paid version of ansible.
+it is platform independent.
+ansible works with YAML language.
+ansible dependency is python.
+GUI for ansible is Ansible-Tower.
