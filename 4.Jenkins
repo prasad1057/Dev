@@ -801,7 +801,7 @@ pipeline {
 		       |                                                |                                     |
 		SERVER LEVEL                                       JOB LEVEL                             CODE LEVEL
 		       |                                                |                                   
-        A. CONSOLE OP                                         A. REPO AND BRANCH CONFIG master-main branch)
+        A. CONSOLE OP                                         A. REPO AND BRANCH CONFIG (master-main branch)
         B. MAVEN & JAVA (maven support java versions)         B. SYNTAX
         C. DEPENDENCY MISTAKE   (GIT tool)                    C. PLUGINS
         D. CPU & MEMEORY  (enhance t2 medium to t2 large)
