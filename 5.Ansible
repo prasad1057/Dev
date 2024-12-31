@@ -26,3 +26,11 @@ PLAYBOOK  : it is file which consist ansible code.
           : If you want to any kind of work in ansible you need to write PLAYBOOK.
 
 inventory file   : worker node information stored
+
+for servers hostname is mandatory
+Hostname : to identify the server
+
+vim /etc/ssh/sshd_config    : it is file having properties of login of root user
+                           : If root user login to other servers you need to modify this file on every server.
+
+** yum package is not going to work for Ansible. **
