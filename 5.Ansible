@@ -24,9 +24,16 @@ SSH protocol     : to connect two servers
 PLAYBOOK  : it is file which consist ansible code.
           : its a file which we are write the code to intsall softwares and deployment even the server creation.
           : If you want to any kind of work in ansible you need to write PLAYBOOK.
-
 inventory file   : worker node information stored
 
+HOW IT WORKS ?
+ARCHITECTURE:
+
+ANSIBLE SERVER: used to communicate with worker nodes and install pkgs, deployment
+WORKER NODES: takes commands from ansible server and works according to it
+PLAYBOOK: conatins the code which is used to perform action.
+INVENTORY: conatains info about worker nodes and group.
+--------------------------------------------------------------------------------------------------------
 for servers hostname is mandatory
 Hostname : to identify the server
 
@@ -34,3 +41,8 @@ vim /etc/ssh/sshd_config    : it is file having properties of login of root user
                            : If root user login to other servers you need to modify this file on every server.
 
 ** yum package is not going to work for Ansible. **
+
+                ansible all -a "yum install git -y"
+                        |    |
+                        |  for arguments
+                 installing for all servers
