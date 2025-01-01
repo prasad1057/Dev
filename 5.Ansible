@@ -1,3 +1,10 @@
+## INTERVIEW QUESTIONS ##
+
+1. What is configuration managemnet tool ?
+2. What is vim /etc/ssh/sshd_config ?
+
+
+--------------------------------------------------------------------------------------------------------
 Ansible :  
  
  all the following process becomes automated with help of Ansible
@@ -17,7 +24,7 @@ it is platform independent.
 ansible works with YAML language.
 ansible dependency is python.
 GUI for ansible is Ansible-Tower.
-ansible is agentless.
+ansible is agentless.  (like for Ansible there is java-11 is agent here is no agent)
 
 SSH protocol     : to connect two servers 
 
@@ -25,7 +32,7 @@ PLAYBOOK  : it is file which consist ansible code.
           : its a file which we are write the code to intsall softwares and deployment even the server creation.
           : If you want to any kind of work in ansible you need to write PLAYBOOK.
 inventory file   : worker node information stored
-
+--------------------------------------------------------
 HOW IT WORKS ?
 ARCHITECTURE:
 
@@ -60,30 +67,67 @@ sudo -i
 
 // below all same for all servers
 passwd root        // give same password for all servers (password is invisible)
-vim /etc/ssh/sshd_config  (line 38 uncomment, line 63 no=yes)
+vim /etc/ssh/sshd_config 
+(line 40 uncomment (PermitRootLogin yes), line 65 no=yes (PasswordAuthentication yes), line 66 comment (PermitEmptyPasswords no))
 systemctl restart sshd
 systemctl status sshd
 
 
 ANSIBLE SERVER (main wala):
-amazon-linux-extras install ansible2 -y             // yum is supported for ansible
-yum install python python-pip python-dlevel -y
-vim /etc/ansible/hosts (line 12 paste below code)
+sudo yum install ansible -y             (// amazon-linux-extras install ansible2 -y)         // yum is not supported for ansible as per sir
+yum install python3 python3-pip python3-devel -y     (// yum install python python-pip python-dlevel -y)
+vim /etc/ansible/hosts (line 12 paste below code)    // If this file is empty dont panic stay with steps
 
-make groups on line 12  : [dev] and [test]
+make groups on line 12  : [dev] and [test]      // empyty file : make two groups
 
 [dev]
-172.31.44.19        // private ip of first dev server
+172.31.44.19        // private ip of first dev server 
 172.31.35.18        // private ip of second dev server
 [test]
 172.31.36.39         // private ip of first test server
 172.31.43.36         // private ip of second test server
 
-
-ssh-keygen           #used to generate the keys 
+// all servers same time
+ssh-keygen           # used to generate the keys 
 enter 4 times
+// in ansible
 ssh-copy-id root@private-ip  -- > yes -- > password(given in above steps)             (ssh-copy-id root@private-ip_of_every_other_4_server_one_by_one )
 ssh private-ip
 ctrl d
 
 NOTE: COPY THE KEYS TO ALL WORKER NODES BY USING ABOVE METHOD
+-------------------------------------------------------------------------------------------------------------------------------------
+1. ADHOC COMMANDS
+these are simple linux commands.
+used for temporary work.
+these commands will be over rided.
+
+ansible all -a "yum install git -y"
+ansible all -a "yum install maven -y"
+ansible all -a "mvn --version"
+ansible all -a "touch file1"
+ansible all -a "ls"
+ansible all -a "yum install httpd -y"             // httpd : Apache HTTP server
+ansible all -a "systemctl restart httpd"
+ansible all -a "systemctl status httpd"
+ansible all -a "useradd raham"
+
+
+INVENTORY HOST PATTREN:
+ansible all --list-hosts                // list for all 4 servers i.e(dev & test) display its private ip
+ansible dev --list-hosts               // list all dev servers
+ansible test --list-hosts             // list all test servers
+ansible test[0] --list-hosts         // list 0th index server i.e is 1st test server (test-1)
+ansible all[-1] --list-hosts        // list second last server private ip
+ansible all[1:3] --list-hosts      // list in between ranges servers
+
+
+Verify that Ansible can connect:
+ansible dev -m ping 
+ansible test -m ping
+
+-------------------------------------------------------------------------------------------------------------------------------------
+-- 22 --
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
