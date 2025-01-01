@@ -34,6 +34,7 @@ WORKER NODES: takes commands from ansible server and works according to it
 PLAYBOOK: conatins the code which is used to perform action.
 INVENTORY: conatains info about worker nodes and group.
 --------------------------------------------------------------------------------------------------------
+
 for servers hostname is mandatory
 Hostname : to identify the server
 
@@ -46,3 +47,43 @@ vim /etc/ssh/sshd_config    : it is file having properties of login of root user
                         |    |
                         |  for arguments
                  installing for all servers
+
+
+SETUP:
+
+CREATE 5 SERVERS (1=ANSIBLE, 2=DEV, 2=TEST)
+ALL SERVERS:
+sudo -i
+hostnamectl set-hostname ansible/dev-1/dev-2/test-1/test-2     // for different servers give diff names hostname
+sudo -i
+
+
+// below all same for all servers
+passwd root        // give same password for all servers (password is invisible)
+vim /etc/ssh/sshd_config  (line 38 uncomment, line 63 no=yes)
+systemctl restart sshd
+systemctl status sshd
+
+
+ANSIBLE SERVER (main wala):
+amazon-linux-extras install ansible2 -y             // yum is supported for ansible
+yum install python python-pip python-dlevel -y
+vim /etc/ansible/hosts (line 12 paste below code)
+
+make groups on line 12  : [dev] and [test]
+
+[dev]
+172.31.44.19        // private ip of first dev server
+172.31.35.18        // private ip of second dev server
+[test]
+172.31.36.39         // private ip of first test server
+172.31.43.36         // private ip of second test server
+
+
+ssh-keygen           #used to generate the keys 
+enter 4 times
+ssh-copy-id root@private-ip  -- > yes -- > password(given in above steps)             (ssh-copy-id root@private-ip_of_every_other_4_server_one_by_one )
+ssh private-ip
+ctrl d
+
+NOTE: COPY THE KEYS TO ALL WORKER NODES BY USING ABOVE METHOD
