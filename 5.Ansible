@@ -2,7 +2,8 @@
 
 1. What is configuration managemnet tool ?
 2. What is vim /etc/ssh/sshd_config ?
-
+3. What is PLAYBOOK ?
+         --> PLAYBOOK : it is collection of modules 
 
 --------------------------------------------------------------------------------------------------------
 Ansible :  
@@ -131,5 +132,126 @@ ansible test -m ping
 -------------------------------------------------------------------------------------------------------------------------------------
 -- 22 --
 -------------------------------------------------------------------------------------------------------------------------------------
+ANSIBLE MODULES : work on for reusability purpose
 
+to remove the git   : ansible all -a 'yum remove git*'
+
+         ansible all -m yum -a 'name=git state=present'
+                      |                       |  
+                    module                installing
+
+Modules :  
+yum       : for installing or removing packages
+service   : If already intsall give service instead of yum else it gives error
+user      : to create or work with users
+copy      : to copy the content (src='' dest='')
+
+app.yml   : it is a text file which contains properties of application 
+
+SERVERS :
+webserver : port no is 80 (apache,ngnix)
+appserver : port no is 8080 (tomcat)
+dbserver : port no is 5432 (5432:postgresql, 3306:mysql, 8529:ArangoDB)
+
+ansible all -a 'ls/root'                        // to verify the yml file is copy or not to root 
+
+* When you deploy the application inside the application you need to put this yml file*
+
+ok : number of tasked performed by Ansible
+changed : how many tasked given by the user
+--------------------------------------------------------
+--------------------------------------------------------
+color pattren:
+
+YELLOW	: SUCCESSFUL
+RED	: FAILED
+GREEN	: ALREADY DONE
+BLUE	: SKIPPED
+--------------------------------------------------------
+ansible all -a "yum install git -y"
+ansible all -m yum -a "name=git state=present"
+ansible all -m yum -a "name=docker state=present"  (present=install)
+ansible all -m yum -a "name=docker state=present"  (absent=uninstall)
+ansible all -m yum -a "name=docker state=latest"   (latest=update)
+ansible all -m service -a "name=httpd state=started"
+ansible all -m service -a "name=httpd state=stopped"
+ansible all -m user -a "name=rajinikanth state=present"
+ansible all -m user -a "name=rajinikanth state=absent"
+ansible all -m copy -a "src=app.yml dest=/root"
+ansible all -a "ls /root"
+--------------------------------------------------------
+PLAYBOOKS:
+playbook is a collection of modules.
+we can execute multiple modules at same time.
+we can reuse the playbook.
+playbook will be written on YAML language.
+YAML: YET ANOTHER MARKUP LANGUAGE
+its a human readable and serial langauge.
+yaml is syntax-based.
+yaml start with --- and end with ...        // its optional
+we write it on list format.
+extension is .yml or .yaml
+
+PLAYBOOK1:
+
+vim raham.yml
+
+---
+- hosts: all                                     # the playbook will run on all hosts  
+  tasks:
+    - name: install httpd                        # The - (dash) in YAML indicates the start of a new item in a list
+      yum: name=httpd state=present
+
+    - name: start httpd
+      service: name=httpd state=started
+
+    - name: create user
+      user: name=revi state=present
+...
+
+
+ansible-playbook raham.yml
+
+
+- hosts: all
+  tasks:
+    - name: remove httpd
+      yum: name=httpd state=absent
+
+    - name: stop httpd
+      service: name=httpd state=stopped
+
+    - name: remove user
+      user: name=revi state=absent
+
+
+TAGS:
+used to execute or skip a specific task          // tags name can be anything
+
+- hosts: all
+  tasks:
+    - name: install docker
+      yum: name=docker state=present
+      tags: a
+
+    - name: start docker
+      service: name=docker state=started
+      tags: b
+
+    - name: install maven
+      yum: name=maven state=present
+      tags: c
+
+    - name: create user
+      user: name=revi state=present
+      tags: d
+
+SINGLE TAG: ansible-playbook raham.yml --tags c
+MULTI TAGS: ansible-playbook raham.yml --tags a,b
+SKIP TAGS: ansible-playbook raham.yml --skip-tags "c"
+MULTI SKIP TAGS: SKIP TAGS: ansible-playbook raham.yml --skip-tags "b,c"
+
+-------------------------------------------------------------------------------------------------------------------------------------
+-- --
+-------------------------------------------------------------------------------------------------------------------------------------
 
