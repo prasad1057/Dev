@@ -171,14 +171,21 @@ BLUE	: SKIPPED
 ansible all -a "yum install git -y"
 ansible all -m yum -a "name=git state=present"
 ansible all -m yum -a "name=docker state=present"  (present=install)
-ansible all -m yum -a "name=docker state=present"  (absent=uninstall)
+ansible all -m yum -a "name=docker state=absent"  (absent=uninstall)
 ansible all -m yum -a "name=docker state=latest"   (latest=update)
 ansible all -m service -a "name=httpd state=started"
 ansible all -m service -a "name=httpd state=stopped"
 ansible all -m user -a "name=rajinikanth state=present"
 ansible all -m user -a "name=rajinikanth state=absent"
-ansible all -m copy -a "src=app.yml dest=/root"
+ansible all -m copy -a "src=app.yml dest=/root"   (for this create app.yml file and write content)
 ansible all -a "ls /root"
+
+app.yml  -->
+name: abc
+webserver: 192.168.100.1:80                        (dumy ip addresses)
+appserver: 192.168.100.2:8080
+db_server: 192.168.100.3:5432
+lb_url: www.abc.com
 --------------------------------------------------------
 PLAYBOOKS:
 playbook is a collection of modules.
@@ -194,7 +201,7 @@ extension is .yml or .yaml
 
 PLAYBOOK1:
 
-vim raham.yml
+vim karan.yml
 
 ---
 - hosts: all                                     # the playbook will run on all hosts  
@@ -206,11 +213,11 @@ vim raham.yml
       service: name=httpd state=started
 
     - name: create user
-      user: name=revi state=present
+      user: name=groot state=present
 ...
 
 
-ansible-playbook raham.yml
+ansible-playbook karan.yml                  // to run the ansible playbook
 
 
 - hosts: all
@@ -222,7 +229,7 @@ ansible-playbook raham.yml
       service: name=httpd state=stopped
 
     - name: remove user
-      user: name=revi state=absent
+      user: name=groot state=absent
 
 
 TAGS:
@@ -243,13 +250,13 @@ used to execute or skip a specific task          // tags name can be anything
       tags: c
 
     - name: create user
-      user: name=revi state=present
+      user: name=groot state=present
       tags: d
 
-SINGLE TAG: ansible-playbook raham.yml --tags c
-MULTI TAGS: ansible-playbook raham.yml --tags a,b
-SKIP TAGS: ansible-playbook raham.yml --skip-tags "c"
-MULTI SKIP TAGS: SKIP TAGS: ansible-playbook raham.yml --skip-tags "b,c"
+SINGLE TAG: ansible-playbook karan.yml --tags c
+MULTI TAGS: ansible-playbook karan.yml --tags a,b
+SKIP TAGS: ansible-playbook karan.yml --skip-tags "c"
+MULTI SKIP TAGS: SKIP TAGS: ansible-playbook karan.yml --skip-tags "b,c"
 
 -------------------------------------------------------------------------------------------------------------------------------------
 -- --
