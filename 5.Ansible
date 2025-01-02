@@ -48,6 +48,8 @@ Hostname : to identify the server
 vim /etc/ssh/sshd_config    : it is file having properties of login of root user
                            : If root user login to other servers you need to modify this file on every server.
 
+vim /etc/ansible/hosts   : file conains list of hosts that Ansible can manage.
+
 ** yum package is not going to work for Ansible. **
 
                 ansible all -a "yum install git -y"
