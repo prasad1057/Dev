@@ -445,3 +445,7 @@ ansible all -m setup | grep -i mem         // for memory information aof all ser
 Increase the size of computing capacity (t2.micro --> t2.large)
 goto servers --> select one(dev-1)  --> stop the instance --> select instance --> goto actions --> Instance Setting --> Change instance type 
 after this run again TROUBLESHOOTING commands.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+-- --
+-------------------------------------------------------------------------------------------------------------------------------------
