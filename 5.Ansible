@@ -5,8 +5,13 @@
 3. What is PLAYBOOK ?
          --> PLAYBOOK : it is collection of modules 
 
+4. You want to remove worker node from ansible node, How will you remove ?
+5. You want to see how many node are connected how will you see?
+                  --> cd .ssh  ->  cat known_hosts 
+                  --> cd .ssh  ->  ansible all --list-host     (its not correct, if you add dummy ip inside inventory file it shows but actually it is not correct)
+
 --------------------------------------------------------------------------------------------------------
-Ansible :  
+Ansible :   
  
  all the following process becomes automated with help of Ansible
  SERVER --> SOFTWARE INSTALLATION --> TOMCAT SETUP --> DEPLOYMENT 
@@ -259,6 +264,184 @@ SKIP TAGS: ansible-playbook karan.yml --skip-tags "c"
 MULTI SKIP TAGS: SKIP TAGS: ansible-playbook karan.yml --skip-tags "b,c"
 
 -------------------------------------------------------------------------------------------------------------------------------------
--- --
+-- 23 --
 -------------------------------------------------------------------------------------------------------------------------------------
 
+Modules :
+shell, command, raw : these modules responsible for executing plane linux commands.
+
+SHELL VS COMMAND VS RAW
+
+- hosts: all
+  tasks:
+    - name: install git
+      shell: yum install git -y
+
+    - name: install maven
+      command: yum install maven -y
+
+    - name: install docker
+      raw: yum install docker -y
+
+RAW >> COMMAND >> SHELL
+
+sed -i 's/install/remove/g' raham.yml
+
+----------------------------------------------------
+- hosts: all
+  tasks:
+    - name: remove git
+      shell: yum remove git -y
+
+    - name: remove maven
+      command: yum remove maven -y
+
+    - name: remove docker
+      raw: yum remove docker -y
+
+ansible-playbook raham.yml
+
+** with raw module you can directly work with your node without installing python on my main node **
+** for uninsatlling git ypu need to put * there after git because some dependenies of git will there **
+
+----------------------------------------------------
+                                                    VARIABLES
+                                                        |
+                                    -------------------------------------------------
+                                    |                                               |
+                                  STATIC                                         DYNAMIC 
+                  (vars which will define inside playbook)        (vars which are not define inside playbook)
+
+
+- hosts: all
+  vars:
+    a: git
+    b: maven
+    c: docker
+  tasks:
+    - name: install git
+      yum: name={{a}} state=present
+
+    - name: install maven
+      yum: name={{b}} state=present
+
+    - name: install docker
+      yum: name={{c}} state=present
+
+
+ansible-playbook raham.yml
+
+----------------------------------------------------
+- hosts: all
+  vars:
+    a: git*
+    b: maven
+    c: docker
+  tasks:
+    - name: install git*
+      yum: name={{a}} state=absent
+
+    - name: install maven
+      yum: name={{b}} state=absent
+
+    - name: install docker
+      yum: name={{c}} state=absent
+
+ansible-playbook raham.yml
+
+----------------------------------------------------
+- hosts: all
+  vars:
+    a: git*
+    b: maven
+    c: docker
+  tasks:
+    - name: install git*
+      yum: name={{a}} state=present
+
+    - name: install maven
+      yum: name={{b}} state=present
+
+    - name: install docker
+      yum: name={{c}} state=present
+
+    - name: install pkg
+      yum: name={{d}} state=present
+
+ansible all -a "yum remove git* maven* docker* tree* -y"
+
+----------------------------------------------------
+- hosts: all
+  vars:
+    a: git
+    b: maven
+    c: docker
+  tasks:
+    - name: install git*
+      yum: name={{a}} state=present
+
+    - name: install maven
+      yum: name={{b}} state=present
+
+    - name: install docker
+      yum: name={{c}} state=present
+
+    - name: install {{d}}
+      yum: name={{d}} state=present
+
+    - name: install {{e}}
+      yum: name={{e}} state=present
+
+ single var: ansible-playbook raham.yml --extra-vars "d=tree"
+ multi var: ansible-playbook raham.yml --extra-vars "d=tree e=java-1.8.0-openjdk"
+
+sed -i "s/present/absent/g" raham.yml
+ multi var: ansible-playbook raham.yml --extra-vars "d=tree e=java-1.8.0-openjdk"
+
+
+----------------------------------------------------
+
+LOOPS:
+
+- hosts: all
+  tasks:
+    - name: install pkgs
+      yum: name={{item}} state=present
+      with_items:
+        - git
+        - maven
+        - docker
+        - htppd
+        - tree
+
+----------------------------------------------------
+- hosts: all
+  tasks:
+    - name: create users
+      user: name={{item}} state=present
+      with_items:
+        - jayanth
+        - delidemir
+        - ramesh
+        - kowshik
+        - revi
+        - manikanta
+        - sravanthi
+        - sarvani
+        - nikitha
+        - sadekaa
+
+----------------------------------------------------
+** Setup module is going to print complete information of a worker node **
+command     : ansible all -m setup
+
+
+TROUBLESHOOTING:
+ansible all -m setup | grep -i cpus         // for cpu information aof all servers
+ansible all -m setup | grep -i mem         // for memory information aof all servers
+
+** Average capacity of instance is minimun 8 CPU's **
+
+Increase the size of computing capacity (t2.micro --> t2.large)
+goto servers --> select one(dev-1)  --> stop the instance --> select instance --> goto actions --> Instance Setting --> Change instance type 
+after this run again TROUBLESHOOTING commands.
