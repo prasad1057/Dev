@@ -258,10 +258,10 @@ used to execute or skip a specific task          // tags name can be anything
       user: name=groot state=present
       tags: d
 
-SINGLE TAG: ansible-playbook karan.yml --tags c
-MULTI TAGS: ansible-playbook karan.yml --tags a,b
-SKIP TAGS: ansible-playbook karan.yml --skip-tags "c"
-MULTI SKIP TAGS: SKIP TAGS: ansible-playbook karan.yml --skip-tags "b,c"
+SINGLE TAG: ansible-playbook karan.yml --tags c         // execute only c tag
+MULTI TAGS: ansible-playbook karan.yml --tags a,b      // execute a nd b 
+SKIP TAGS: ansible-playbook karan.yml --skip-tags "c"                           // skip c and execute all
+MULTI SKIP TAGS: SKIP TAGS: ansible-playbook karan.yml --skip-tags "b,c"       // skip b and c and execute all  
 
 -------------------------------------------------------------------------------------------------------------------------------------
 -- 23 --
