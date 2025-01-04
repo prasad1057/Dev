@@ -95,7 +95,7 @@ make groups on line 12  : [dev] and [test]      // empyty file : make two groups
 172.31.36.39         // private ip of first test server
 172.31.43.36         // private ip of second test server
 
-// all servers same time
+// all servers same time                                    // after many days if getting some error to connect worker nodes (like UNREACHABLE!) then do again these steps ssh wale
 ssh-keygen           # used to generate the keys 
 enter 4 times
 // in ansible
@@ -203,7 +203,7 @@ yaml is syntax-based.
 yaml start with --- and end with ...        // its optional
 we write it on list format.
 extension is .yml or .yaml
-
+-------------------------------------------------------- 
 PLAYBOOK1:
 
 vim karan.yml
@@ -224,7 +224,7 @@ vim karan.yml
 
 ansible-playbook karan.yml                  // to run the ansible playbook
 
-
+--------------------------------------------------------
 - hosts: all
   tasks:
     - name: remove httpd
@@ -236,7 +236,7 @@ ansible-playbook karan.yml                  // to run the ansible playbook
     - name: remove user
       user: name=groot state=absent
 
-
+--------------------------------------------------------
 TAGS:
 used to execute or skip a specific task          // tags name can be anything
 
@@ -348,6 +348,7 @@ ansible-playbook raham.yml
       yum: name={{c}} state=absent
 
 ansible-playbook raham.yml
+ansible all -a 'git --version'         // for checking that is all packages are successfully removed or not
 
 ----------------------------------------------------
 - hosts: all
@@ -393,10 +394,10 @@ ansible all -a "yum remove git* maven* docker* tree* -y"
       yum: name={{e}} state=present
 
  single var: ansible-playbook raham.yml --extra-vars "d=tree"
- multi var: ansible-playbook raham.yml --extra-vars "d=tree e=java-1.8.0-openjdk"
+ multi var: ansible-playbook raham.yml --extra-vars "d=tree e=java-11-amazon-corretto"
 
 sed -i "s/present/absent/g" raham.yml
- multi var: ansible-playbook raham.yml --extra-vars "d=tree e=java-1.8.0-openjdk"
+ multi var: ansible-playbook raham.yml --extra-vars "d=tree e=java-11-amazon-corretto"
 
 
 ----------------------------------------------------
