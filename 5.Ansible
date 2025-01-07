@@ -421,16 +421,14 @@ LOOPS:
     - name: create users
       user: name={{item}} state=present
       with_items:
-        - jayanth
-        - delidemir
-        - ramesh
-        - kowshik
-        - revi
-        - manikanta
-        - sravanthi
-        - sarvani
-        - nikitha
-        - sadekaa
+        - prasad
+        - nikhil
+        - durvesh
+        - diva
+        - pranav
+        - sujata
+        - katta
+        - gauri
 
 ----------------------------------------------------
 ** Setup module is going to print complete information of a worker node **
@@ -448,5 +446,82 @@ goto servers --> select one(dev-1)  --> stop the instance --> select instance --
 after this run again TROUBLESHOOTING commands.
 
 -------------------------------------------------------------------------------------------------------------------------------------
--- --
+-- 24 --
 -------------------------------------------------------------------------------------------------------------------------------------
+
+cluster : group of worker nodes / servers
+                                             CLUSTER
+                                                |
+                        -------------------------------------------------
+                       |                                                |
+                  Homogeneous                                       Heterogenous
+     (same type of server with same OS flavour)         (different type of server with different OS flavour)
+
+
+----------------------------------------------------
+
+- hosts: all
+  tasks:
+    - name: installing git on RedHat
+      yum: name=git* state=present
+      when: ansible_os_family == 'RedHat'
+
+    - name: installing git on Ubuntu 
+      apt: name=git* state=present
+      when: ansible_os_family == 'Debian'
+
+sed -i 's/present/absent/g' karan.yml
+    
+----------------------------------------------------
+
+- hosts: all
+  tasks:
+    - name: installing apache on RedHat
+      yum: name=httpd state=present
+      when: ansible_os_family == 'RedHat'
+
+    - name: installing apache on Ubuntu 
+      apt: name=apache2 state=present
+      when: ansible_os_family == 'Debian'
+
+sed -i 's/present/absent/g' karan.yml
+
+--------------------------------------------------------------------------------------------------------
+* resatring httpd is directly based on installing httpd * --> for that we use Handlers 
+
+HANDLERS: here one task depends on another task.
+when task-1 is executed it will call task-2 to perform the action.
+ex: if we want to restart httpd we need to install it
+restarting depends on installing.
+Note: here we have notify module.
+
+- hosts: all
+  tasks:
+    - name: installing apache on RedHat
+      yum: name=httpd state=present
+      notify: starting apache
+  handlers:
+    - name: starting apache
+      service: name=httpd state=started
+
+ansible all -a "systemctl status httpd"
+
+----------------------------------------------------
+vault : to do encryption (security)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
