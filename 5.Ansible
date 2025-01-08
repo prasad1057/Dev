@@ -507,7 +507,11 @@ Note: here we have notify module.
 ansible all -a "systemctl status httpd"
 
 ----------------------------------------------------
-vault : to do encryption (security)
+vault : to do encryption (security) 
+
+view : without decrypt but still want tosee file
+
+YAMLint  : online yaml editor where you can check the code where it has indentation error or not:
 
 
 
