@@ -509,14 +509,120 @@ ansible all -a "systemctl status httpd"
 ----------------------------------------------------
 vault : to do encryption (security) 
 
-view : without decrypt but still want tosee file
+ANSIBLE VAULT:
+it is used to encrypt the files, playbooks ----
+Technique: AES256 (USED BY FACEBOOK)
+vault will store our data very safely and securely.
+if we want to access any data which is in the vault we need to give a password.
+Note: we can restrict the users to access the playbook aslo.
 
-YAMLint  : online yaml editor where you can check the code where it has indentation error or not:
+ansible-vault create creds1.txt		: to create a vault
+ansible-vault edit creds1.txt		: to edit a vault
+ansible-vault rekey creds1.txt		: to change password for a vault
+ansible-vault decrypt creds1.txt	         : to decrypt the content	
+ansible-vault encrypt creds1.txt	         : to encrypt the content	
+ansible-vault view creds1.txt		: to show the content without decrypt  (view : without decrypt but still want those file)
+
+----------------------------------------------------
+PIP: its a pkg manager used to install python libs/modules
+
+Redhat: yum
+ubuntu: apt
+python: pip
+
+- hosts: all
+  tasks:
+    - name: installing pip
+      yum: name=pip state=present
+
+    - name: installing NumPy
+      pip: name=Numpy state=present
 
 
+- hosts: all
+  tasks:
+    - name: installing pip
+      yum: name=pip state=present
+
+    - name: installing Pandas
+      pip: name=Pandas state=present
+----------------------------------------------------
+
+ROLES: 
+used to divide the playbook into directory structures.
+we can organize the playbooks.
+we can encapsulate the data.
+we can reduce the playbook length.
+
+mkdir playbooks
+cd playbooks
+yum install tree -y
 
 
+.
+├── master.yml
+└── roles
+    ├── file
+    │   └── tasks
+    │       └── main.yml
+    ├── one
+    │   └── tasks
+    │       └── main.yml
+    └── raham
+        └── tasks
+            └── main.yml
 
+
+mkdir -p roles/one/tasks
+vim roles/one/tasks/main.yml
+
+- name: installing maven
+  yum: name=maven state=present
+
+vim roles/raham/tasks/main.yml
+- name: create user
+  user: name=srikanth state=present
+
+vim roles/file/tasks/main.yml
+- name: create a file
+  shell: touch file22
+
+vim master.yml
+
+- hosts: all
+  roles:
+    - one
+    - raham
+    - file
+
+ansible-playbook master.yml
+
+
+make folder(mkdir -p roles/one/tasks) -> make file main.yml -> write content -> save -> make master.yml file -> write content(roles) -> run playbook (master wali)
+
+----------------------------------------------------
+ANSIBLE-GALAXY: used to store playbooks like code on github.
+
+ansible-galaxy search java
+ansible-galaxy install akhilesh9589.tomcat
+ansible-galaxy search --author alikins
+
+----------------------------------------------------
+
+YAMLint  : online yaml editor where you can check the code where it has indentation error or not
+
+ansible-playbook karan.yml --check : playbook is now executed but it check what happened if playbook is execute.
+
+dry run : without executing a  playbook we can check output.
+
+Ansible Debug Module : to print the messages
+
+rm rf *  : to remove erverthing
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+-- --
+-------------------------------------------------------------------------------------------------------------------------------------
 
 
 
