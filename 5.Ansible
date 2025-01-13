@@ -664,9 +664,104 @@ playbook.yml -->
 ansible-playbook playbook.yml
 
 ----------------------------------------------------
+STRATAGIES : it is way of working with ansible playbook, by defaultly ansible strategy is work on LINEAR STRATEGY 
+
+LINEAR      : execute tasks sequencially (task1 is on all servers, task2 is on all servers, task3 is on all serves)
+FREE        : execute all tasks on all node at same time
+ROLLING     : task1-task2 again task2-task1 again task1-task2 
+SEQUENCE    : step by step 
+BATCH       : all at a single time at all node
+                                                  STRATAGIES
+                                                      |
+          ------------------------------------------------------------------------------------------------
+          |                       |                        |                      |                      |
+       LINEAR                    FREE                   ROLLING                SEQUENCE                BATCH
+
+ hosts: dev
+  gather_facts: false
+  strategy: free
+  vars:
+    a: "{{lookup('file', '/root/creds.txt') }}"
+  tasks: 
+    - debug:
+        msg: "hai my user name is {{a}}"
 
 
+----------------------------------------------------
+LAMP:
+L : LINUX
+A : APACHE  -  for presentation layer
+M : MYSQL
+P : PHP / PYTHON  -  for application layer
+
+apache = webserver = show frontend application
+/var/www/html  : default path for apache
+
+---
+- hosts: all
+  tasks:
+    - name: installing apache
+      yum: name=httpd state=present
+    - name: installing mysql
+      yum: name=mysql state=present
+    - name: installing python
+      yum: name=python3 state=present
 
 
+----------------------------------------------------
 
+NETFLIX DEPLOPYMET:
+
+- hosts: test
+  tasks:
+    - name: installing apache server
+      yum: name=httpd state=present
+
+    - name: activating apache server
+      service: name=httpd state=started
+
+    - name: installing git
+      yum: name=git state=present
+
+    - name: git checkout
+      git:
+        repo: "https://github.com/CleverProgrammers/pwj-netflix-clone.git"
+        dest: "/var/www/html"
+
+TOMCAT SETUP:
+USE TOMCAT.YML, CONTEXT.XML AND TOMCAT-USER.XML FROM BELOW REPO
+https://github.com/RAHAMSHAIK007/all-setups.git
+
+CONDITIONS:
+CLUSTER: GROUP OF NODES/SERVERS
+
+HOMOGENIUS: SERVERS WITH SAME OS AND FLAVOUR
+HETEROGENEOUS: SERVERS WITH DIFFERENT OS AND FLAVOUR
+
+
+- hosts: all
+  tasks:
+    - name: installing git* on RedHat
+      yum: name=git* state=present
+      when: ansible_os_family == "RedHat"
+
+    - name: installing git* on Ubuntu
+      apt: name=git* state=present
+      when: ansible_os_family == "Debian"
+
+sed -i 's/present/absent/g' raham.yml
+
+EX-2:
+
+- hosts: all
+  tasks:
+    - name: installing apache on RedHat
+      yum: name=httpd state=present
+      when: ansible_os_family == "RedHat"
+
+    - name: installing apache on Ubuntu
+      apt: name=apache2 state=present
+      when: ansible_os_family == "Debian"
+
+sed -i 's/present/absent/g' raham.yml
 
