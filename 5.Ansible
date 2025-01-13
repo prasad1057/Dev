@@ -10,6 +10,8 @@
                   --> cd .ssh  ->  cat known_hosts 
                   --> cd .ssh  ->  ansible all --list-host     (its not correct, if you add dummy ip inside inventory file it shows but actually it is not correct)
 
+6. Scanario Based -> If you want to troubleshoot of worker node want to show particular properties of worker node from ansible how can do it ?
+                  --> use Debug module  where you can create custom output
 --------------------------------------------------------------------------------------------------------
 Ansible :   
  
@@ -568,7 +570,7 @@ yum install tree -y
     ├── one
     │   └── tasks
     │       └── main.yml
-    └── raham
+    └── karan
         └── tasks
             └── main.yml
 
@@ -579,13 +581,13 @@ vim roles/one/tasks/main.yml
 - name: installing maven
   yum: name=maven state=present
 
-vim roles/raham/tasks/main.yml
+vim roles/karan/tasks/main.yml
 - name: create user
-  user: name=srikanth state=present
+  user: name=prasad state=present
 
 vim roles/file/tasks/main.yml
 - name: create a file
-  shell: touch file22
+  shell: touch file1
 
 vim master.yml
 
@@ -615,20 +617,53 @@ ansible-playbook karan.yml --check : playbook is now executed but it check what 
 
 dry run : without executing a  playbook we can check output.
 
-Ansible Debug Module : to print the messages
-
 rm rf *  : to remove erverthing
 
 
 -------------------------------------------------------------------------------------------------------------------------------------
--- --
+-- 25 --
 -------------------------------------------------------------------------------------------------------------------------------------
+Ansible Debug Module : to print the messages, apart from this we can create our custom output.
+                     : (custom output we can create also from JINJA2 TEMPLATE)
+                     : If you want to print particular module of ansible can use "Debug Module"
+
+Whenever want to troubleshoot need to check following properties for that need to create playbook in that create this output instead of using grep command.
+
+ansible_hostname
+ansible_memfree_mb
+ansible_memtotal_mb
+ansible_os_family
+ansible_pkg_mgr
+ansible_processor_vcpus
+
+- hosts: all
+  tasks:
+    - name: to pring mgs
+      debug:
+        msg: "the node name os: {{ansible_hostname}}, the total mem is: {{ansible_memtotal_mb}}, free mem is {{ansible_memfree_mb}}, the flavour of ec2 is: {{ansible_os_family}}, toto cpus is: {{ansible_processor_vcpus}}"
 
 
+JINJA2 TEMPLATE: used to get the customized op, here its a text file which can extract the variables and these values will change as per time.'
 
 
+----------------------------------------------------
+LOOKUPS: this module used to get data from files, db and key-values
 
+cat creds.txt
+user=raham
 
+playbook.yml -->
+
+- hosts: dev
+  vars:
+    a: "{{lookup('file', '/root/creds.txt') }}"
+  tasks:
+    - debug:
+        msg: "hai my user name is {{a}}"
+
+ansible-playbook playbook.yml
+
+----------------------------------------------------
 
 
 
