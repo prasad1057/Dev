@@ -1,0 +1,82 @@
+## INTERVIEW Q ##
+
+1. What is Virtualization?
+      --> Process of using hardware properties in proper / better way
+2.  What is Containerization?
+      -->  process of packing application with its dependencies
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Docker
+
+MONOLITHIC       : SINGLE APP -- > SINGLE SERVER -- > SINGLE DATABASE
+MICRO SERVICES   : SINGLE APP -- > MULTIPLE SERVERS -- > MULTIPLE DATABASES
+e.g. Paytm Application 
+-------------------------------------
+MONOLITHIC       : If your application is small & has limited users then MONOLITHIC is good
+- all service will be on single place
+- dB is single
+
+LIMITATIONS OF MONLITHIC:
+1. SERVER PERFOMANCE  (When a server got affected by only one service inside whatever the service having enitre we are going to stop it)
+2. DATABASE ISSUE 
+-------------------------------------
+MICRO SERVICES   : If your application is large & has more users then MICRO SERVICES  is good
+- each and every serice will be on individual server
+- individual server having individual dB
+
+If you used MICRO SERVICE:
+COST WILL BE HIGH
+MAINTAINANCE
+---------------------------------------------------------------------
+
+  ON-PREM         -------->     VIRTUALIZATION     -------->     CLOUD     -------->  CONTAINERS 
+    |                                  |                           |                       |
+  1.Maintenance                 1. Not Scalable               1. Cost is High          1. Light Weighted
+  2. Hardware Issues            2. Fixed H/w                                           2. Easy to manage
+  3. App Hosting Problem
+
+-------------------------------------
+SERVER = CONTAINER
+
+- Containers will not have os by default.
+- cant able to install pacakages
+- cant able to deploy the app.
+
+images: inside the image of docker we have os and packages
+
+image (os) -- > conatiner (app)
+
+VIRTUALIZATION: process of utilizing hardware resources in better.
+CONTAINERIZATION: process of packing application with its dependencies
+APP: PUBG DEPENDENCY: MAPS
+
+PUBG:
+APP: PLAYSTORE, MAPS: INTERNET
+-------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
