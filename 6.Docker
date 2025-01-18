@@ -39,11 +39,24 @@ COST WILL BE HIGH
 MAINTAINANCE
 ---------------------------------------------------------------------
 
-  ON-PREM         -------->     VIRTUALIZATION     -------->     CLOUD     -------->  CONTAINERS 
-    |                                  |                           |                       |
-  1.Maintenance                 1. Not Scalable               1. Cost is High          1. Light Weighted
-  2. Hardware Issues            2. Fixed H/w                                           2. Easy to manage
-  3. App Hosting Problem
+
+      ------------------------     ------------------------     ------------------------     ------------------------
+      |       ON-PREM        |     |    VIRTUALIZATION    |     |        CLOUD         |     |       CONTAINERS     |
+      |----------------------|     |----------------------|     |----------------------|     |----------------------|
+      |                      |     |   2cpu        2cpu   |     |                      |     |                      |
+      |                      |     |   2RAM        2RAM   |     |                      |     |                      |
+      |                      |     |                      |     |                      |     |                      |
+      |     APPLICATION      | --> |   2cpu        2cpu   | --> |  10 * 100 = 1000     | --> |                      |
+      |                      |     |   2RAM        2RAM   |     |  24 * 1000 = 24K     |     |                      |
+      |                      |     |                      |     |                      |     |                      |
+      |                      |     |                      |     |                      |     |                      |
+      |                      |     |        8 CPUs        |     |                      |     |                      |
+      |                      |     |        8 RAM         |     |                      |     |                      |
+      ------------------------     ------------------------     ------------------------     ------------------------
+        1.Maintenance                  1. Not Scalable              1. Cost is High             1. Light Weighted
+        2. Hardware Issues             2. Fixed H/w                                             2. Easy to manage
+        3. App Hosting Problem
+
 
 -------------------------------------
 SERVER = CONTAINER
