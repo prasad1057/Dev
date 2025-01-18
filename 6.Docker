@@ -5,8 +5,12 @@
 2.  What is Containerization?
       -->  process of packing application with its dependencies
 
-
-
+3. Differ b/w Docker stop v/s Docker kill ?
+            --> Docker stop = First Docker is going to stop all services inside conatiner it will wait servies to stop 
+            --> Docker kill = it doesn't care about service inside conatiner , directly attack
+4. Diifer Docker pull v/s Docker run ?
+            --> Docker pull = used to get the image 
+            --> Docker run = to run the container
 
 
 
@@ -58,25 +62,74 @@ APP: PUBG DEPENDENCY: MAPS
 
 PUBG:
 APP: PLAYSTORE, MAPS: INTERNET
--------------------------------------
+---------------------------------------------------------------------
+
+DOCKER:
+- its a free and open-source platform.
+- docker will create containers.
+- we can create, run, and deploy our apps on containers.
+- its platform independent (native runs on Linux Distribution).
+- containers will use host resources (cpu, mem, ram, os)
+- docker will perform os level of VIRTUALIZATION called containerization.
+- containers are light weighted 
+
+History of Docker:
+- year: 2013
+- developed by: Solomen Hykes and Sebastian Phal
+- language: go lang    (Google Official Language is GO LANGAUGE)
 
 
+ARCHITECTURE:
+DOCKER CLIENT: its a way of interacting with docker  (if give command -- > output)
+DOCKER DAEMON: it manage all the docker components (images, cont, volumes, nlw)
+DOCKER HOST: where we installed docker
+DOCKER REGISTRY: it manages all the  docker images on internet.
+      
+** DOCKER COMPONENTS consume the H/w Resources of Host **
+
+                     e.g  --> (Trip - Money - from Mom - if not - from Dad - then to you)
+                          You                        Mom                          Dad
+                  ---------------------      ---------------------      ---------------------           
+                  |   DOCKER CLIENT   |      |    DOCKER_HOST    |      |  DOCKER REGISTRY  |
+                  |-------------------|      |-------------------|      |-------------------|                 
+                  |                   |      |   Docker Daemon   | ---->|                   |
+                  |   docker build    | ---->|                   | ---->|          Oracle   |
+                  |   docker pull     | ---->|  Containers       |      |                   |
+                  |   docker run      | ---->|           Images  |<---- |         Cassandra |
+                  |                   |      |                   |<---- |                   |
+                  |                   |<---- |                   |      |                   |
+                  |                   |      |                   |      |                   |
+                  ---------------------      ---------------------      ---------------------
 
 
+INSTALLATION:
+yum install docker -y
+systemctl start docker
+systemctl status docker
+
+docker search                                : to search the docker images from daemon 
+docker pull amazonlinux	                     : to downlaod image
+du -sh                                       : server occupy storage for OS
+docker run -it --name cont1 amazonlinux      : to create conatiner
+ctrl p q                                     : to exit from conatiner
 
 
+                  docker run -it --name cont1 amazonlinux : to create conatiner
+                              |
+                        interactive terminal : for to go inside the conatiner 
+
+yum install git -y
+yum install maven -y
+touch file1
+
+docker images		: to list images
+docker start cont1	: to start cont1
+docker stop cont1	      : to stop cont1
+docker kill cont1	      : to stop immedieatly cont1
+docker ps 		      : to see running containers
+docker ps -a		: to see all containers
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+-------------------------------------------------------------------------------------------------------------------------------
+-- --
+-------------------------------------------------------------------------------------------------------------------------------
