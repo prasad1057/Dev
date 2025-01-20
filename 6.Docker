@@ -12,7 +12,10 @@
             --> Docker pull = used to get the image 
             --> Docker run = to run the container
 
-
+5. What is apt ?
+            --> apt : ADVANCE PACKAGER TOOL (tool which is used to install packages for ubuntu)
+6. What is Docker File ?
+            --> its a way of creating images automatically & used multiple times & in Docker file D is always capital and also components 
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -142,7 +145,70 @@ docker kill cont1	      : to stop immedieatly cont1
 docker ps 		      : to see running containers
 docker ps -a		: to see all containers
 
+service docker start       : to start docker
+service docker status      : to show status of dokcer
 
 -------------------------------------------------------------------------------------------------------------------------------
--- --
+-- 27 --
 -------------------------------------------------------------------------------------------------------------------------------
+OS LEVEL VIRTUALIZATION : what is inside OS completely create a backup of it.
+
+
+NOTE: 
+apt is package manager for ubuntu (yum in not supported for ubuntu)
+Redhat: Yum
+Ubuntu: Apt
+
+apt : advance packager tool
+
+docker pull ubuntu                      : to get ubuntu image
+docker run -it --name cont1 ubuntu      : to create ubuntu
+apt update -y                           : to update all
+docker attach cont1                     : to go inside container
+docker commit cont1 karan               : copy obejct from container to image (karan is image)
+
+without running apt update -y we cant install packages
+
+            WORKING: (inside conatiner)      (This is Manual Process - is not going to used)
+            docker pull ubuntu 
+                  | 
+            docker run -it --name cont1 ubuntu
+                  |
+            apt update -y
+                  |
+            apt install git maven apache2 tree -y
+                  |
+            touch file{1..5}
+                  |
+            docker commit cont1 karan
+            docker run -it --name cont2 karan
+
+
+
+Whatever objects in the conatiner is directly copied to the image
+
+
+                           container-1                                      container-2
+                        --------------------        karan image         ---------------------
+        image           |                  |      ----------------      |                   |
+   ---------------      |      git         |      |              |      |      git          |
+   |             |      |      maven       |      |     git      |      |      maven        |
+   |             | ---> |      apache2     | ---> |     maven    | ---> |      apache2      |
+   |   ubuntu    | ---> |      tree        | ---> |     apache2  | ---> |      tree         |
+   |             |      |      files       |      |     tree     |      |      files        |
+   ---------------      |                  |      |     files    |      |                   |
+                        |                  |      ----------------      |                   |
+                        --------------------                            ---------------------    
+                                                                       
+                                                                        
+----------------------------------------------------------------------------------------------------------------
+
+DOCKERFILE:
+- its a way of creating images automatically.
+- we can reuse the docker file for multiple times.
+- in Dockerfile D will be Capital always.
+- Components inside the Dockerfile also Capital.
+
+Dockerfile -- > Image -- > Container -- > DockerFile --> Image --> Container --> Reapeat
+
+26.00
