@@ -149,13 +149,14 @@ ctrl p q                                     : to exit from conatiner
                               |
                         interactive terminal : for to go inside the conatiner 
 
-yum install git -y
+// Download inside container
+yum install git -y      
 yum install maven -y
 touch file1
 
 docker images		: to list images
 docker start cont1	: to start cont1
-docker stop cont1	      : to stop cont1
+docker stop cont1	      : to stop cont1      (It will take time to stop)
 docker kill cont1	      : to stop immedieatly cont1
 docker ps 		      : to see running containers
 docker ps -a		: to see all containers
@@ -237,7 +238,7 @@ CMD		      : to execute linux commands (container creation)
 ENTRYPOINT	      : high priority than cmd
 COPY 		      : to copy local files to conatainer
 ADD 		      : to copy Intenet files to conatainer
-WORKDIR		: to go desired folder
+WORKDIR		: to go desired folder      (after run conatiner you will go desired folder)
 LABEL 		: to attach our tags/labels
 ENV		      : variables which run inside conatiner (image)
 ARGS		      : variables which run outside conatiner(containers)
@@ -329,7 +330,9 @@ docker stop $(docker ps -a -q)       : to stop all conatiners
 docker rm $(docker ps -a -q)         : to delete all conatiners
 
 docker images -q	                   : to print image ids
-docker rmi -f $(docker images -q)    : to delete all images
+docker rmi -f $(docker images -q)    : to delete all images      
+         |
+       i = images
 
 --------------------------------
 
@@ -337,6 +340,107 @@ if container is not starting or you can't go inside container :
 
 docker build -t netflix:v1 .
 docker run -it --name cont1 netflix:v1 /bin/bash      (then u r able to go inside conatiner without this u can't)
+
+-------------------------------------------------------------------------------------------------------------------------------
+-- 28 --
+-------------------------------------------------------------------------------------------------------------------------------
+-- Docker Volumes --
+
+VOLUMES:
+- in docker, we use volumes to store the data.
+- volume is nothing but a folder inside a container.
+- we can share a volume from one container to another.
+- the volume contains the files which have data.
+- we can attach the single volume to multiple containers.
+- but at a time we can attach only one volume to one container.
+- volumes are decoupled (loosely attached)
+- if we delete the container volume will not be deleted.
+- size = 8GB
+
+--------------------------------
+Pre-Dowload Docker :
+create instance -> Network setting -> Advance setting -> option: User Data (Write following script)
+Script :
+#! bin/bash
+sudo -i
+yum install docker -y
+systemctl start docker
+
+--------------------------------
+METHOD-1:
+DOCKER FILE:
+
+FROM ubuntu
+VOLUME ["/volume1"]
+
+docker build -t netflix:v1 .
+docker run -it --name cont1 netflix:v1
+cd volume1
+touch file{1..10}
+ctrl p q
+
+docker run -it --name cont2 --volumes-from cont1 --privileged=true ubuntu  (taking volume from cont1 to cont2) (--privileged=true --> like give full access to cont2)
+cd volume1
+ll
+
+--------------------------------
+
+2. CLI:
+
+docker run -it --name cont3 -v /volume2 ubuntu   (v for voulme)
+cd volume2
+touch java{1..10}
+ctrl p q
+
+docker run -it --name cont4 --volumes-from cont3 --privileged=true ubuntu
+cd volume2
+ll
+ctrl p q
+
+--------------------------------
+
+3. VOLUME MOUNTING:
+
+volume commands:
+docker volume create volume3
+docker volume ls
+docker volume inspect volume3        (inspect : getting complete information)
+
+cd /var/lib/docker/volumes/volume3/_data       (Mountpoint : where the volume content is store)
+touch python{1..10}
+ll
+docker run -it --name cont5 --mount source=volume3,destination=/volume3 ubuntu
+
+--------------------------------
+
+4. MOVING FILES FROM LOCAL TO CONTAINER:
+
+create a conatiner and attach a volume for it
+
+touch raham{1..10}
+docker inspect cont6
+docker volume inspect volume4
+cp * /var/lib/docker/volumes/volume4/_data
+
+--------------------------------
+
+5.
+touch raham{1..10}
+cp * /home/ec2-user
+docker run -it --name cont12 -v /home/ec2-user:/abcd ubuntu
+
+--------------------------------
+
+SYSTEM COMMANDS:
+docker system df	      : show docker components resource utilization  (H/w resources)
+docker system df -v	: show docker components resource utilization individually
+docker system prune	: to remove unused docker components
+
+--------------------------------
+
+JENKINS SETUP:
+docker run -it --name cont1 -p 8080:8080 jenkins/jenkins:lts
+
 -------------------------------------------------------------------------------------------------------------------------------
 -- --
 -------------------------------------------------------------------------------------------------------------------------------
