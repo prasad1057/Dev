@@ -120,7 +120,19 @@ DOCKER REGISTRY: it manages all the  docker images on internet.
                   |                   |      |                   |      |                   |
                   ---------------------      ---------------------      ---------------------
 
+-------------------------------------
 
+image      : A Docker image is a blueprint for creating containers (An image is read-only, meaning it cannot be modified directly)
+
+container  : A container is a working copy of the image.
+           : A Docker container is a running instance of an image
+
+e.g.
+- Imagine you have a recipe book (the image). You can't write in it; it's read-only.
+- When you want to cook, you make a photocopy of the recipe (the container).
+- You can write notes or modify the photocopy (the writable layer), but the original recipe book (the image) stays unchanged.
+
+-------------------------------------
 INSTALLATION:
 yum install docker -y
 systemctl start docker
@@ -168,7 +180,7 @@ docker pull ubuntu                      : to get ubuntu image
 docker run -it --name cont1 ubuntu      : to create ubuntu
 apt update -y                           : to update all
 docker attach cont1                     : to go inside container
-docker commit cont1 karan               : copy obejct from container to image (karan is image)
+docker commit cont1 karan               : copy obejct from container to image (karan is image)  (docker commit only works to save a container obejct into image.)
 
 without running apt update -y we cant install packages
 
@@ -219,16 +231,16 @@ docker inspect cont7 | grep -i author
 
 --------------------------------
 COMPONENTS:
-FROM		: to base image (gives os) (get the OS)
-RUN		: to execute linux commands (image creation)
-CMD		: to execute linux commands (container creation)
-ENTRYPOINT	: high priority than cmd
-COPY 		: to copy local files to conatainer
-ADD 		: to copy Intenet files to conatainer
+FROM		      : to base image (gives os) (get the OS)
+RUN		      : to execute linux commands (image creation)
+CMD		      : to execute linux commands (container creation)
+ENTRYPOINT	      : high priority than cmd
+COPY 		      : to copy local files to conatainer
+ADD 		      : to copy Intenet files to conatainer
 WORKDIR		: to go desired folder
 LABEL 		: to attach our tags/labels
-ENV		: variables which run inside conatiner (image)
-ARGS		: variables which run outside conatiner(containers)
+ENV		      : variables which run inside conatiner (image)
+ARGS		      : variables which run outside conatiner(containers)
 VOLUME		: used to create volume for conatiner
 EXPOSE		: used to give port number
 
@@ -243,7 +255,7 @@ Build : docker build -t netflix:v1 .
 cont: docker run -it --name cont3 netflix:v1
 
 --------------------------------
-ex-2:
+EX-2:
 FROM ubuntu
 RUN apt update -y
 RUN apt install git maven tree apache2 -y
@@ -270,7 +282,7 @@ RUN apt install git maven tree apache2 -y
 COPY index.html /tmp
 ADD https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz /tmp
 WORKDIR /tmp
-LABEL author rahamshaik
+LABEL author karank
 
 --------------------------------
 EX-5:
@@ -281,8 +293,8 @@ RUN apt install git maven tree apache2 -y
 COPY index.html /tmp
 ADD https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz /tmp
 WORKDIR /tmp
-LABEL author rahamshaik
-ENV name vijay
+LABEL author karank
+ENV name prasad 
 ENV client swiggy
 
 run commands inside container
@@ -299,8 +311,8 @@ RUN apt install git maven tree apache2 -y
 COPY index.html /tmp
 ADD https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz /tmp
 WORKDIR /tmp
-LABEL author rahamshaik
-ENV name vijay
+LABEL author karank
+ENV name prasad
 ENV client swiggy
 VOLUME ["/volume1"]
 EXPOSE 8080
