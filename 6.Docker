@@ -120,6 +120,8 @@ DOCKER REGISTRY: it manages all the  docker images on internet.
                   |                   |      |                   |      |                   |
                   ---------------------      ---------------------      ---------------------
 
+** after building Docker file you will get image **
+
 -------------------------------------
 
 image      : A Docker image is a blueprint for creating containers (An image is read-only, meaning it cannot be modified directly)
@@ -424,7 +426,7 @@ cp * /var/lib/docker/volumes/volume4/_data
 
 --------------------------------
 
-5.
+5. HOST TO CONTAINER : 
 touch raham{1..10}
 cp * /home/ec2-user
 docker run -it --name cont12 -v /home/ec2-user:/abcd ubuntu
@@ -442,5 +444,54 @@ JENKINS SETUP:
 docker run -it --name cont1 -p 8080:8080 jenkins/jenkins:lts
 
 -------------------------------------------------------------------------------------------------------------------------------
--- --
+-- 29 --
 -------------------------------------------------------------------------------------------------------------------------------
+-- Docker Compose --
+
+
+micro-service pattern  :  each service design inside container
+
+dettach mode (-d or -D) : container will run but you can come out of container by defaultly
+
+81 : conatiner port number (can changable)
+80 : image port number (can'tchangeable - it is apache port no)
+
+--------------------------------
+PROCESS: 
+CODE -- > BUILD (DOCKER FILE) -- > IMAGE -- > CONTAINER -- > APP
+
+vim Dockerfile
+
+FROM ubuntu
+RUN apt update -y
+RUN apt install apache2 -y
+COPY index.html /var/www/html
+CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
+
+create index.html
+
+docker build -t movies:v1 .
+docker run -itd --name movies -p 81:80 movies:v1
+public-ip:81 
+
+--------------------------------
+2. CHNAGE INDEX.HTML (MOVIES=TRAIN)
+
+docker build -t train:v1 .
+docker run -itd --name train -p 82:80 train:v1
+public-ip:82
+
+--------------------------------
+3. CHNAGE INDEX.HTML (TRAIN=DTH)
+
+docker build -t dth:v1 .
+docker run -itd --name dth -p 83:80 dth:v1
+public-ip:83
+
+--------------------------------
+4. CHNAGE INDEX.HTML (DTH=RECHARGE)
+
+docker build -t recharge:v1 .
+docker run -itd --name recharge -p 84:80 recharge:v1
+public-ip:84
+
