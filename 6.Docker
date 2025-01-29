@@ -475,23 +475,110 @@ docker run -itd --name movies -p 81:80 movies:v1
 public-ip:81 
 
 --------------------------------
-2. CHNAGE INDEX.HTML (MOVIES=TRAIN)
+2. CHANGE INDEX.HTML (MOVIES=TRAIN)
 
 docker build -t train:v1 .
 docker run -itd --name train -p 82:80 train:v1
 public-ip:82
 
 --------------------------------
-3. CHNAGE INDEX.HTML (TRAIN=DTH)
+3. CHANGE INDEX.HTML (TRAIN=DTH)
 
 docker build -t dth:v1 .
 docker run -itd --name dth -p 83:80 dth:v1
 public-ip:83
 
 --------------------------------
-4. CHNAGE INDEX.HTML (DTH=RECHARGE)
+4. CHANGE INDEX.HTML (DTH=RECHARGE)
 
 docker build -t recharge:v1 .
 docker run -itd --name recharge -p 84:80 recharge:v1
 public-ip:84
 
+
+--------------------------------
+DOCKER COMPOSE : 
+     - its a tool used to launch multiple conatiners.
+     - we can create multiple containers on single hosts.
+     - all of the services informatiom we are going to write on a file.
+     - here we use docker-compose/compose file.
+     - it will be on yaml format.
+     - we use key-value pair (dictionary) (.yml or .yaml)
+     - used to manage multiple servivces / container with help of a file.
+     - docker compose will work on single host
+
+
+SETUP: (also you can create script file and run it)
+      sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            |
+      ls /usr/local/bin/
+            |
+      sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+            |
+      sudo chmod +x /usr/local/bin/docker-compose
+            |
+      docker-compose version
+
+--------------------------------
+Note :
+Whenever we download a package on file format we need to move that file to bin folder.
+
+** docker-compose need to support docker engine version (docker engine = 20  -  docker version = 3.8) **
+
+vim docker-compose.yml
+
+version: '3.8'
+services:
+  movies:
+    image: movies:v1
+    ports:
+      - "81:80"
+  train:
+    image: train:v1
+    ports:
+      - "82:80"
+  dth:
+    image: dth:v1
+    ports:
+      - "83:80"
+  recharge:
+    image: recharge:v1
+    ports:
+      - "84:80"
+
+
+docker-compose up -d      : Whatever write inside in compose file you are going to run that services
+               |
+            run the services 
+
+Note: remove all the conatiners
+
+** services and conatiner both are same, inside container role you have service **
+--------------------------------
+Commands:
+docker-compose              : get all possible commands for the compose file
+docker-compose up -d	    : to run all services
+docker-compose down	    : to remove all services
+docker-compose stop	    : to stop all services
+docker-compose kill	    : to kill all services
+docker-compose rm	          : to remove all services which is on stopped state
+docker-compose start	    : to start all services
+docker-compose pause	    : to pause all services
+docker-compose unpause	    : to unpause all services
+docker-compose images	    : to get all images managed by compose file
+docker-compose ps -a	    : to get all containers managed by compose file
+docker-compose logs	    : to get all logs managed by compose file
+docker-compose scale dth=10 : to create 10 containers of dth     (scale= increase the strength of container)
+docker-compose top	    : to get all process managed by conatiners on compose file
+docker-compose -h           : to see all commands of docker-compose 
+
+--------------------------------
+DEFAULT FILE CHANGE:
+mv docker-compose.yml raham.yml
+docker-compose stop
+Supported filenames: docker-compose.yml, docker-compose.yaml, compose.yml, compose.yaml
+docker-compose -f raham.yml stop
+
+-------------------------------------------------------------------------------------------------------------------------------
+-- --
+-------------------------------------------------------------------------------------------------------------------------------
