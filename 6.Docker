@@ -450,11 +450,26 @@ docker run -it --name cont1 -p 8080:8080 jenkins/jenkins:lts
 
 
 micro-service pattern  :  each service design inside container
-
+      
 dettach mode (-d or -D) : container will run but you can come out of container by defaultly
 
-81 : conatiner port number (can changable)
-80 : image port number (can'tchangeable - it is apache port no)
+81 : container port number (can changable)
+80 : image port number (can't changeable - it is apache port no)
+
+/var/www/html       : container’s Apache web directory 
+
+** apachectl is used to control the Apache server. **
+
+-D FOREGROUND : Apache server run in the foreground instead of background service , keeping the container alive and serving web pages.
+
+/bin/      : Contains essential binaries for all users (e.g., ls, cat, cp).
+/sbin/     : Contains system administration binaries (e.g., iptables, fdisk, apachectl).
+
+
+-i       → Interactive mode (keeps STDIN open)
+-t       → Allocates a pseudo-TTY (for terminal access)
+-d       → Detached mode (runs the container in the background)
+
 
 --------------------------------
 PROCESS: 
@@ -464,7 +479,7 @@ vim Dockerfile
 
 FROM ubuntu
 RUN apt update -y
-RUN apt install apache2 -y
+RUN apt install apache2 -y 
 COPY index.html /var/www/html
 CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
 
