@@ -595,5 +595,109 @@ Supported filenames: docker-compose.yml, docker-compose.yaml, compose.yml, compo
 docker-compose -f raham.yml stop
 
 -------------------------------------------------------------------------------------------------------------------------------
+-- 30 --
+-------------------------------------------------------------------------------------------------------------------------------
+
+DOCKER HUB:
+
+Its a central platfrom used to store docker images.
+image we create on host then we will push them to dockerhub.
+Once image is availabel on dockerhub we can use in any server.
+we use repos to store images.
+
+                              REPOSITORY
+                                  |
+                   -------------------------------
+                   |                             |
+            public repo                      private repo
+
+
+NOTE : if image is not uploaded on docker hub you cant not use for all servers you need to create image on each server
+
+
+ACCOUNT : 
+      create account (docker hub.com)
+            |
+      create repository (movies) - public - create
+            |
+      docker images
+            |
+      docker tag image:v1 username/reponame
+            |
+      docker login (uername and password)
+            |
+      docker push username/reponame
+
+
+TO PUSH IMAGE ON DOCKER HUB :
+build dcoker file (docker build -t movies:v1 .)
+      |
+image tag  (docker tag movies:v1 username/reponame)      (repo is automatically create on hub)
+      |
+push it (docker push username/reponame)
+
+-------------------------------------------------------------------------
+
+DOCKER SWARM:
+
+High availability: deploying app on more than one server
+means using the cluster.
+
+- docker swarm is a container orchestration tool.
+- it is used to manage multiple containers on multiple nodes.
+- each node will have a copy of single container.
+- here we have manager and worker nodes.
+- manager node will create containers and send to worker nodes.
+- worker nodes will take the container and manage them.
+- manager node communicates with worker node by using TOKEN.
+--------------------------------
+SETUP:
+1. create 3 servers (1=manager 2=worker) (all traffic is must)
+yum install docker -y
+systemctl start docker 
+systemctl status docker
+
+2. set the hostnames:
+hostnamectl set-hostname manager/worker-1/worker-2
+
+3. generate and copy token:
+manager node: docker swarm init
+copy the token to all worker nodes
+docker node ls
+
+--------------------------------
+
+SERVICES:
+its a way of exposing the application in docker.
+with services we can create multiple copies of same container.
+with services we can distribute the containers to all servers.
+
+docker service create --name movies --replicas=3 --publish 81:80 jayaprakashsairam05/movies:latest
+
+** Container-orchistresion : managing multiple containers on multiple servers **
+--------------------------------
+docker service ls             : to get all services 
+docker service ps train		: to list containers for train 
+docker service inspect train	: to get complete info of train service
+docker service scale train=10	: to scale the services
+docker service scale train=6	: to scale the services
+docker service rollback train	: to go back to previous state
+docker service rm train		: to delete the train services
+
+--------------------------------
+SELF HEALING: automatically recreates container itself.
+
+CLUSTER LEVEL ACTIVITES:
+docker swarm leave(worker node)	: to down the woker node
+docker node rm id (manager node): to remove the node permenanetly
+docker swarm join-token manager : to regenerate the token
+
+
+Note: to join the node on cluster use the previous token
+we can delete running worker node directly
+we need to stop and then delete it
+
+
+-------------------------------------------------------------------------------------------------------------------------------
 -- --
 -------------------------------------------------------------------------------------------------------------------------------
