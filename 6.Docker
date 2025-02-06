@@ -650,6 +650,8 @@ means using the cluster.
 - manager node will create containers and send to worker nodes.
 - worker nodes will take the container and manage them.
 - manager node communicates with worker node by using TOKEN.
+
+** Container-orchistresion : managing multiple containers on multiple servers **
 --------------------------------
 SETUP:
 1. create 3 servers (1=manager 2=worker) (all traffic is must)
@@ -674,13 +676,15 @@ with services we can distribute the containers to all servers.
 
 docker service create --name movies --replicas=3 --publish 81:80 jayaprakashsairam05/movies:latest
 
-** Container-orchistresion : managing multiple containers on multiple servers **
+
 --------------------------------
+
+docker node ls                : to list all nodes
 docker service ls             : to get all services 
 docker service ps train		: to list containers for train 
 docker service inspect train	: to get complete info of train service
-docker service scale train=10	: to scale the services
-docker service scale train=6	: to scale the services
+docker service scale train=10	: to scale the services            (scale in = increasing the strength of conatiners)
+docker service scale train=6	: to scale the services            (scale out = decreasing the strenght of conatiners)
 docker service rollback train	: to go back to previous state
 docker service rm train		: to delete the train services
 
@@ -688,10 +692,12 @@ docker service rm train		: to delete the train services
 SELF HEALING: automatically recreates container itself.
 
 CLUSTER LEVEL ACTIVITES:
-docker swarm leave(worker node)	: to down the woker node
-docker node rm id (manager node): to remove the node permenanetly
-docker swarm join-token manager : to regenerate the token
+docker swarm leave(worker node)	 : to down the woker node
+docker node rm id (manager node)     : to remove the node permenanetly
+docker swarm join-token manager      : to regenerate the token
 
+* If you want to delete/remove running       node first need to make down that node *
+** Note : When you down the worker node we need to copy the token one more time to rejoin the cluster. **
 
 Note: to join the node on cluster use the previous token
 we can delete running worker node directly
