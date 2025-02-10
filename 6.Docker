@@ -847,9 +847,106 @@ services:
 
 
 -------------------------------------------------------------------------------------------------------------------------------
--- --
+-- 32 --  Docker Portainer_Network_Resource Management_JFrog
 -------------------------------------------------------------------------------------------------------------------------------
 
+portainer : its an application to monitor the container (GUI method)
+
+** compose file deploy on swarm --> by using docker stack **
+
+            docker stack deploy -c portainer-agent-stack.yml portainer
+                                                                |
+                                                            stack name
+
+
+docker stack ls       : to see all stack
+
+If you delete stack then everything is automatically deleted (Conatiners, services)      --> docker stack rm <stack_name>
+
+NETWORKING : it used to connect devices
+
+prune --> remove all unused networks
+--------------------------------
+
+PORTAINER: (GUI)
+- it is a container organizer, designed to make tasks easier, whether they are clustered or not. 
+- able to connect multiple clusters, access the containers, migrate stacks between clusters
+- it is not a testing environment mainly used for production routines in large companies.
+- Portainer consists of two elements, the Portainer Server and the Portainer Agent. 
+- Both elements run as lightweight Docker containers on a Docker engine
+
+
+SETUP:
+
+* Must have swarm mode and all ports enable with docker engine *
+curl -L https://downloads.portainer.io/ce2-16/portainer-agent-stack.yml -o portainer-agent-stack.yml
+docker stack deploy -c portainer-agent-stack.yml portainer
+docker stack ps portainer
+docker ps
+public-ip of swamr master:9000
+username and password 
+ 
+--------------------------------
+
+DOCKER NETWORKING:
+- Docker networks are used to make a communication between the
+  multiple containers that are running on same or different docker hosts.
+
+                                                            DOCKER NETWORKING
+                                                                    |
+                              -----------------------------------------------------------------------------
+                              |                       |                         |                         |
+                       BRIDGE NETWORK *           HOST NETWORK               NONE NETWORK              OVERLAY NETWORK *
+                                                                                                    (opposite of BRIDGE)
 
 
 
+BRIDGE NETWORK: It is a default network that container will communicate with each other within the same host.
+
+HOST NETWORK: When you Want your container IP and ec2 instance IP same then you use host network
+
+NONE NETWORK: When you don’t Want The container to get exposed to the world, we use none network. It will not provide any network to our container.
+
+OVERLAY NETWORK: Used to communicate containers with each other across the multiple docker hosts.
+
+--------------------------------
+COMMANDS :
+
+docker network create network_name                                : To create a network
+docker network ls                                                 : To see the list
+docker network rm network_name                                    : To delete a network
+docker network inspect network_name                               : To inspect network 
+docker network connect network_name container_id/name             : To connect a container to the network
+apt install iputils-ping -y                                       : command to install ping checks      (ping = checking response)
+docker network disconnect network_name container_name             : To disconnect from the container
+docker network prune                                              : To prune
+
+--------------------------------
+
+RESOURCE MANAGEMENT:
+continers are going to use host resources. (CPU, MEM and RAM)
+we need to limit that resoure utilization.
+by default containers are not having limts.
+
+docker run -itd --name cont3 --cpus="0.5" --memory="500mb" ubuntu 
+docker inspect cont3
+docker stats
+docker top cont3      : used to see what are process running inside container
+
+--------------------------------
+
+* Instead of JFrog indusry used S3 aws services to store data *
+
+
+JFrog  --> Artifactort tool  (where we can store jar,war,ear files)      --> for JFrog you need to maintain two servers
+
+vim jfrog.sh --> paste script --> save --> sh jfrog.sh
+
+Script :
+#! /bin/bash
+sudo yum update -y
+sudo yum install java-1.8* -y
+sudo wget https://jfrog.bintray.com/artifactory/jfrog-artifactory-oss-6.9.6.zip
+sudo yum install unzip -y
+sudo unzip  jfrog-artifactory-oss-6.9.6.zip
+sudo sh jfrog-artifactory-oss-6.9.6/bin/artifactory.sh start
