@@ -1,0 +1,124 @@
+## INTERVIEW Q ##
+
+1. Differ bet apt-update & apt-upgrade ?
+      --> apt-update = it show list of packages to update but it won't update
+      --> apt-upgrade = but you really want to update these packages upgrade is used 
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+Kubernetes
+- open-source Orchestration tool/platform
+- used to automates manual processes lke deploying, managing, and scaling containersized application
+- developed by Google using GO language
+- denoted by K8S to CNCF in 2014    (CNCF - Cloud Native Computing Foundation)
+- 1st version released in 2015
+
+------------------------------------------------------------
+
+DOCKER SWARM:
+CLUSTER 
+NODES
+CONTAINER
+APP
+                        To remember shortcut : South Heros
+C: CLUSTER                      Chiranjivi
+N: NODE                         Naga arjun
+P: POD                          Pavan kalyan
+C: CONTAINER                    Charan
+A: APPLICATION                  Allu Arjun
+
+
+NOTE: k8s don't communicate with containers.
+it communicate with pods.
+
+------------------------------------------------------------
+COMPONENTS:
+
+MASTER NODE:
+1. API SERVER      : its for communicating with cluster, it takes command executes and gives output.
+2. ETCD            : its a DB of cluster, all the cluster info will store here.
+3. SCHEDULER       : schedules/create pods on worker nodes, based on hardware resources.
+4. CONTROLLER      : used to control the k8s objects.
+      a. cloud controllers
+      b. kube controllers
+
+----------------------
+WORKER NODE:
+KUBELET: its an agent used to communicate with master.
+KUBEPROXY: it deals with nlw.
+POD: its a group of containers.
+
+------------------------------------------------------------
+There are multiple ways to setup kubernetes cluster.
+
+1.SELF MANAGER K8'S CLUSTER
+    a. mini kube (single node cluster)
+    b. kubeadm   (multi node cluster)
+    c. KOPS
+
+2. CLOUD MANAGED K8'S CLUSTER
+    a. AWS EKS
+    b. AZURE AKS
+    c. GCP GKS
+    d. IBM IKE
+
+------------------------------------------------------------
+MINIKUBE:
+  - It is a tool used to setup single node cluster on K8's. 
+  - It contains API Servers, ETDC database and container runtime
+  - It is used for development, testing, and experimentation purposes on local. 
+  - Here Master and worker runs on same machine.
+  - It is a platform Independent.
+
+NOTE: But we don't implement this in real-time (production)
+
+----------------------
+REQUIRMENTS:
+2 CPUs or more
+2GB of free memory
+20GB of free disk space
+Internet connection
+Container or virtual machine manager, such as: Docker.
+
+ec2 - MINIKUBE - UBuntu - n-1 version - t2.medium - keypair - Network setting all - Storage(volumes) = size(GiB) = 20
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
