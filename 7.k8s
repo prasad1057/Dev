@@ -87,6 +87,161 @@ Container or virtual machine manager, such as: Docker.
 
 ec2 - MINIKUBE - UBuntu - n-1 version - t2.medium - keypair - Network setting all - Storage(volumes) = size(GiB) = 20
 
+------------------------------------------------------------
+Manual Processs : ❌❌
+
+UPDATAE SERVER :
+ 1. apt update -y
+ 2. apt upgrade -y
+
+INSTALL DOCKER :
+ 3. sudo apt install curl wget apt-transport-https -y
+ 4. sudo curl -fsSL https://get.docker.com -o get-docker.sh
+    sudo sh get-docker.sh
+
+INSTALL MINICUBE :
+ 5. sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64      (Download Minikube’s latest release:)
+ 6. sudo mv minikube-linux-amd64 /usr/local/bin/minikube            (Move the file to your system’s executable path:)
+ 7. sudo chmod +x /usr/local/bin/minikube            (Give Minikube execute permissions:)
+ 8. minikube version                  
+
+INSTALL KUBECTL :
+ 9. sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"            ( Download the latest version of kubectl:)
+ 10. sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+ 11. sudo echo "$(cat kubectl.sha256) kubectl" | sha256sum --check
+  ✅ If the output says kubectl: OK, you’re good to go!
+ 12. sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+ 13. sudo kubectl version --client
+ 14. sudo kubectl version --client
+ 15. sudo minikube start --driver=docker --force            (Start Minikube with Docker as the driver)
+
+------------------------------------------------------------
+
+PODS:
+
+ - It is a smallest unit of deployment in K8's.
+ - It is a group of containers.
+ - Pods are ephemeral (short living objects)
+ - Mostly we can use single container inside a pod but if we required, we can create multiple containers inside a same pod.
+ - when we create a pod, containers inside pods can share the same network namespace, and can share the same storage volumes .
+ - While creating pod, we must specify the image, along with any necessary configuration and resource limits.
+ - K8's cannot communicate with containers, they can communicate with only pods.
+ - We can create this pod in two ways, 
+      1. Imperative(command) 
+      2. Declarative (Manifest file)
+
+----------------------
+IMPERATIVE: 
+
+kubectl run pod1 --image rahamshaik/paytmtrain:latest      : used to create pod of particular image
+kubectl get po/pod/pods                                    : list of pods
+kubectl get po/pod/pods -o wide                            : want to see additional information about pod
+kubectl describe pod pod1                                  : to show complete information of pod
+kubectl delete pod pod1                                    : to delete pod
+
+----------------------
+DECLARATIVE :
+
+vim abc.yml
+
+apiVersion: v1
+kind: Pod
+metadata:
+   name: pod1
+spec:
+  containers:
+    - image: nginx
+      name: cont1
+
+kubectl create -f abc.yml
+kubectl get po/pod/pods
+kubectl get po/pod/pods -o wide
+kubectl describe pod pod1
+kubectl delete pod pod1
+
+-------------------------------------------------------------------------------------------------------------------
+-- 34 --
+-------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
