@@ -4,8 +4,9 @@
       --> apt-update = it show list of packages to update but it won't update
       --> apt-upgrade = but you really want to update these packages upgrade is used 
 
-
-
+2. Difference Between ReplicaSet v/s Deployment?
+      --> ReplicaSet = in ReplicaSet we can not update the image   (it will create same of copy of ReplicaSet)
+      --> Deployment = in Deployment we can update                 
 
 
 
@@ -163,27 +164,118 @@ kubectl delete pod pod1
 -- 34 --
 -------------------------------------------------------------------------------------------------------------------
 
+DRAWBACK:
+if we delete the pod we cant retrive.
+all the load will be handled by single pod.
 
 
+REPLICA SET:
+it will create same pod of multiple replicas.
+if we delete one pod it will create automatically.
+we can distribute the load also.
 
 
+LABLE: assing to a pod for identification. to work with them as single unit.
+SELECTOR: used to identify the pod with same label.
 
 
+kubectl api-resources      : it can show the shortcuts  ( to know which kind of object that used)
+
+-------------------------------------------------------------------------------------------------------------------
+-- 35 --      Kops MINIKUBE
+-------------------------------------------------------------------------------------------------------------------
+
+REPLICASET:
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels:
+    app: swiggy
+  name: swiggy-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: swiggy
+  template:
+    metadata:
+      labels:
+        app: swiggy
+    spec:
+      containers:
+      - name: cont1
+        image: nginx
+
+kubectl create -f abc.yml
 
 
+kubectl get rs                        : to show the replica set
+kubectl get rs -o wide                : get some additional information 
+kubectl describe rs swiggy-rs         : complete information
+kubectl delete rs swiggy-rs           :
+kubectl edit rs/swiggy-rs             :
+
+Note : SELECTOR and LABLES must be matched (identical)
+
+------------------------------------------------------------
+SCALING: 
+
+SCALE-IN: Increasing the count of pods
+kubectl scale rs/swiggy-rs --replicas=10
+
+SCALE-OUT: Decreasing the count of pods
+kubectl scale rs/swiggy-rs --replicas=5
+
+SCALING FOLLOWS LIFO PATTERN:
+LIFO : LAST IN FIRST OUT
+the pod which is created will be deleted first automatically when we scale out.
+
+----------------------
+rs - (rs will create) - > pods
+deployment - (deployment will create) - > rs - (rs will create) - > pods
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: swiggy
+  name: swiggy-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: swiggy
+  template:
+    metadata:
+      labels:
+        app: swiggy
+    spec:
+      containers:
+      - name: cont1
+        image: nginx
+
+kubectl get deploy
+kubectl get deploy -o wide
+kubectl describe deploy swiggy-rs
+kubectl edit deploy/swiggy-rs
+kubectl delete deploy swiggy-r
+kubectl delete po --all
+
+------------------------------------------------------------
+KUBECOLOR: to give color to the k8s output
+
+wget https://github.com/hidetatz/kubecolor/releases/download/v0.0.25/kubecolor_0.0.25_Linux_x86_64.tar.gz
+tar -zxvf kubecolor_0.0.25_Linux_x86_64.tar.gz
+./kubecolor
+chmod +x kubecolor
+mv kubecolor /usr/local/bin/
+kubecolor get po
 
 
-
-
-
-
-
-
-
-
-
-
-
+-------------------------------------------------------------------------------------------------------------------
+-- 36 --      k8s Kops Cluster Automatically Setups Manually
+-------------------------------------------------------------------------------------------------------------------
 
 
 
