@@ -277,94 +277,90 @@ kubecolor get po
 -- 36 --      k8s Kops Cluster Automatically Setups Manually
 -------------------------------------------------------------------------------------------------------------------
 
+INFRASTRUCTURE: Resources used to run our application on cloud.      (without infrastructure we can not going host our application)
+EX: Ec2, VPC, ALB, --->
+      - like for e.g
+      to deploy a application  -> server                  |
+      to distribute balance    -> Load Balancer           |  --> infrastructure = resource used to run our application on cloud
+      to have security and privacy --> VPC                |
+      to scale servers   --> Autoscaling Group            |
 
+Cluster  --> Group of nodes
 
+dry run --> without running kops we can check possible outcomes 
 
+High Availability = Maintining more than one server
 
+Minicube --> Single Node Cluster
 
+------------------------------------------------------------
 
+KOPS       -- Third party tool (open source)  --> k8s Operation whcih can create cluster automatically 
+- also known as Kubernetes Operation
+- its open source for creating, destroying, upgrading and maintaining k8s cluster.
+- KOPS can also provide cloud infrastructure 
+- kOps is mostly used in deploying AWS and GCE Kubernetes clusters. 
+- But officially, the tool only supports AWS. 
+Support for other cloud providers (such as DigitalOcean, GCP, and OpenStack) are in the beta stage.
 
 
+ADVANTAGES:
+•	Automates the provisioning of AWS and GCE Kubernetes clusters
+•	Deploys highly available Kubernetes masters
+•	Supports rolling cluster updates
+•	Autocompletion of commands in the command line
+•	Generates Terraform and CloudFormation configurations
+•	Manages cluster add-ons.
+•	Supports state-sync model for dry-runs and automatic idempotency
+•	Creates instance groups to support heterogeneous clusters
 
 
+ALTERNATIVES for kops :
+Amazon EKS , MINIKUBE, KUBEADM, RANCHER, TERRAFORM, HELM. 
 
+----------------------
+STEP-1: GIVING PERMISSIONS
+IAM -- > USER -- > CREATE USER -- > NAME: KOPS -- > Attach Polocies Directly -- > Select AdministratorAccess -- > NEXT -- > CREATE USER
+USER -- > SECURTITY CREDENTIALS -- > CREATE ACCESS KEYS -- > CLI -- > CHECKBOX -- >  CREATE ACCESS KEYS -- > DOWNLOAD 
 
+Commands:      
+aws configure
+access key
+secret access key
+region name = ap-south-1
+output format = table     
+----------------------
+SETP-2: INSTALL KUBECTL AND KOPS
 
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+wget https://github.com/kubernetes/kops/releases/download/v1.25.0/kops-linux-amd64
+chmod +x kops-linux-amd64 kubectl
+mv kubectl /usr/local/bin/kubectl
+mv kops-linux-amd64 /usr/local/bin/kops
 
+----------------------
+SETP-3: CREATEING BUCKET = complete infrastructure information is going store on BUCKET 
 
+aws s3api create-bucket --bucket devopsbyprasad188.k8s.local --region us-east-1
+aws s3api put-bucket-versioning --bucket devopsbyprasad188.k8s.local --region us-east-1 --versioning-configuration Status=Enabled
+export KOPS_STATE_STORE=s3://devopsbyprasad188.k8s.local
 
+----------------------
+SETP-4: CREATING THE CLUSTER
 
+kops create cluster --name prasad.k8s.local --zones us-east-1a --master-count=1 --master-size t2.medium --node-count=2 --node-size t2.micro
+kops update cluster --name prasad.k8s.local --yes --admin
 
+----------------------
+Suggestions:
+ * list clusters with: kops get cluster
+ * edit this cluster with: kops edit cluster rahams.k8s.local
+ * edit your node instance group: kops edit ig --name=rahams.k8s.local nodes-us-east-1a
+ * edit your master instance group: kops edit ig --name=rahams.k8s.local master-us-east-1a
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+35.5
 
 
 
