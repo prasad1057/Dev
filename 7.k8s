@@ -293,6 +293,8 @@ High Availability = Maintining more than one server
 
 Minicube --> Single Node Cluster
 
+file download --> give executables permission --> move to user local bin
+
 ------------------------------------------------------------
 
 KOPS       -- Third party tool (open source)  --> k8s Operation whcih can create cluster automatically 
@@ -332,18 +334,27 @@ output format = table
 ----------------------
 SETP-2: INSTALL KUBECTL AND KOPS
 
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-wget https://github.com/kubernetes/kops/releases/download/v1.25.0/kops-linux-amd64
-chmod +x kops-linux-amd64 kubectl
-mv kubectl /usr/local/bin/kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"            # will download kubectl
+wget https://github.com/kubernetes/kops/releases/download/v1.25.0/kops-linux-amd64                                    # will download KOPS
+chmod +x kops-linux-amd64 kubectl                                                      # giving executable permission 
+mv kubectl /usr/local/bin/kubectl                                          # move to user local bin becuase all user executable commmand store in this bin
 mv kops-linux-amd64 /usr/local/bin/kops
 
+kops version
+kubectl version
+vim .bashrc      --> at bottom  --> export PATH=$PATH:/usr/local/bin            (beacuuse this download from internet so by default comand not work so telling that take command of kops and kubectl from user local bin)
+source .bashrc 
+kops version
+kubectl version
 ----------------------
-SETP-3: CREATEING BUCKET = complete infrastructure information is going store on BUCKET 
+SETP-3: CREATEING BUCKET = complete infrastructure information is going store on BUCKET             (Backup of cluster)
+      --> unfortunately you delete cluster , with the help of cluster configuration that is inside bucket can be create cluster again 
 
-aws s3api create-bucket --bucket devopsbyprasad188.k8s.local --region us-east-1
-aws s3api put-bucket-versioning --bucket devopsbyprasad188.k8s.local --region us-east-1 --versioning-configuration Status=Enabled
-export KOPS_STATE_STORE=s3://devopsbyprasad188.k8s.local
+create bucket  --> give versioning to bucket (beacuse to retriving the deleted files)  --> whatever information inside cluster export on this bucket 
+
+aws s3api create-bucket --bucket devopsbyprasad188.k8s.local --region us-east-1      # creating bucket
+aws s3api put-bucket-versioning --bucket devopsbyprasad188.k8s.local --region us-east-1 --versioning-configuration Status=Enabled      #give versioning to bucket (beacuse to retriving the deleted files) 
+export KOPS_STATE_STORE=s3://devopsbyprasad188.k8s.local            # whatever information inside cluster export on this bucket 
 
 ----------------------
 SETP-4: CREATING THE CLUSTER
@@ -358,9 +369,16 @@ Suggestions:
  * edit your node instance group: kops edit ig --name=rahams.k8s.local nodes-us-east-1a
  * edit your master instance group: kops edit ig --name=rahams.k8s.local master-us-east-1a
 
+----------------------      
+ADMIN ACTIVITIES:
+To scale the worker nodes:
+kops edit ig --name=rahams.k8s.local nodes-us-east-1a
+kops update cluster --name rahams.k8s.local --yes --admin 
+kops rolling-update cluster --yes
 
+kubectl describe node node_id
+kops delete cluster --name rahams.k8s.local --yes
 
-35.5
 
 
 
