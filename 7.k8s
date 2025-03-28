@@ -380,6 +380,27 @@ kubectl describe node node_id
 kops delete cluster --name rahams.k8s.local --yes
 
 
+-------------------------------------------------------------------------------------------------------------------
+-- 37 -- Kops Setup Automatic & Kops Automates Infrastructure
+-------------------------------------------------------------------------------------------------------------------
+
+** Bucket name should be globally unique **
+**  when you are executing the script EXPORT command you need to run separately ** (export command whcih is in script )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
