@@ -137,6 +137,17 @@ PODS:
       1. Imperative(command) 
       2. Declarative (Manifest file)
 
+
+----------------------
+** If server id old and trying to srating as new but if fails then **
+
+sudo minikube delete
+exit
+sudo usermod -aG docker $USER
+newgrp docker
+minikube start --driver=docker
+
+
 ----------------------
 IMPERATIVE: 
 
