@@ -102,25 +102,25 @@ UPDATAE SERVER :
  2. apt upgrade -y
 
 INSTALL DOCKER :
- 3. sudo apt install curl wget apt-transport-https -y
- 4. sudo curl -fsSL https://get.docker.com -o get-docker.sh
-    sudo sh get-docker.sh
+sudo apt install curl wget apt-transport-https -y
+sudo curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
 
 INSTALL MINICUBE :
- 5. sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64      (Download Minikube’s latest release:)
- 6. sudo mv minikube-linux-amd64 /usr/local/bin/minikube            (Move the file to your system’s executable path:)
- 7. sudo chmod +x /usr/local/bin/minikube            (Give Minikube execute permissions:)
- 8. minikube version                  
+sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64      #(Download Minikube’s latest release:)
+sudo mv minikube-linux-amd64 /usr/local/bin/minikube           # (Move the file to your system’s executable path:)
+sudo chmod +x /usr/local/bin/minikube           # (Give Minikube execute permissions:)
+minikube version                  
 
 INSTALL KUBECTL :
- 9. sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"            ( Download the latest version of kubectl:)
- 10. sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
- 11. sudo echo "$(cat kubectl.sha256) kubectl" | sha256sum --check
-  ✅ If the output says kubectl: OK, you’re good to go!
- 12. sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
- 13. sudo kubectl version --client
- 14. sudo kubectl version --client
- 15. sudo minikube start --driver=docker --force            (Start Minikube with Docker as the driver)
+sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"           # ( Download the latest version of kubectl:)
+sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+sudo echo "$(cat kubectl.sha256) kubectl" | sha256sum --check
+#✅ If the output says kubectl: OK, you’re good to go!
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+sudo kubectl version --client
+sudo kubectl version --client
+sudo minikube start --driver=docker --force            #(Start Minikube with Docker as the driver)
 
 ------------------------------------------------------------
 
