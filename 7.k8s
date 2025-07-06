@@ -603,6 +603,57 @@ spec:
 
 
 
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+k8s Manifest Files :
+
+1. Deployment.yaml
+
+💡 Purpose:
+It tells Kubernetes how to run your app containers — how many copies, what image to use, and how to manage failures
+
+📦 Think of it as:
+"I want 2 running instances of my app using this Docker image."
+
+🔧 Responsibilities:
+Creates Pods (which run your containers)
+Manages replicas (number of copies of the app)
+Restarts crashed containers automatically
+Ensures high availability
+
+🧱 Without it, your app won't even run inside Kubernetes.
 
 
+------------------------------------------------------------
+2. service.yaml
+
+💡 Purpose:
+It tells Kubernetes how to expose your app — inside the cluster or to the outside world (like via a browser or Postman).
+
+🌐 Think of it as:
+"Make my app reachable at a specific IP/port."
+
+🔧 Responsibilities:
+Connects users to your app
+Load balances traffic between your Pods
+Can expose the app internally or publicly
+Ensures stable access to your app (even if Pods are replaced)
+
+🧱 Without it, no one can access your app, even if it's running.
+
+------------------------------------------------------------
+3. Pod.yaml
+
+💡 Purpose:
+It tells Kubernetes to run a single instance of your app in a container — this is the smallest unit you can deploy in Kubernetes.
+
+🧱 Think of it as:
+"Run one specific Docker container inside the cluster."
+No auto-scaling, no replicas — just one running container.
+
+🔧 Responsibilities:
+Runs a single container (or tightly-coupled containers)
+Defines the image, ports, and environment for that container
+Used for testing, debugging, or very simple apps
+Does not auto-restart or manage multiple replicas like a Deployment
 
