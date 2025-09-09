@@ -43,3 +43,55 @@ ADVANTGAES:
 1. AWS = CFT ( Cloud Formamtion Template )
 2. AZURE = ARM ( Azure Resource Management )
 3. GOOGLE = GDE ( Google Deploy Engine )  
+
+---------------------------------
+iam user - adminaccess - create access key and secret key (security crendiatls - create acess key - CLI - next - dowload file) - in ec2 = aws configure - give acess and secret key - give region=us-east-1 - output=table
+
+
+INSTALLING TERRAFORM:
+
+sudo yum install -y yum-utils shadow-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo yum -y install terraform
+aws configure
+
+
+mkdir terraform
+cd terraform
+---------------------------------
+
+TERRAFORM COMMANDS:
+terraform init	: initalize the provider plugins on backend
+terraform plan	: to create execution plan for our resource (it reads the value from configuration file and it isoing to show whcih value is applicable for which resource ) 
+terrafrom apply : to create resources
+terrafrom destroy : to delete resources
+
+CODE:
+vim main.tf 
+
+provider "aws" {                      # provider means whcih cloud actually
+region = "us-east-1"
+}
+
+resource "aws_instance" "one" {
+ami = "ami-0bb4c991fa89d4b9b"
+instance_type = "t2.micro"
+}
+
+terraform init
+terraform plan
+terraform apply
+terraform destroy 
+
+STATE FILE: used to store the resource information which is created by terraform 
+to track the resource activities
+in real time entire resource info is on state file.
+we need to keep it safe
+if we lost this file we cant track the infra.
+Command:
+terraform state list
+
+terrafrom target: used to destroy the specific resource 
+terraform state list
+single target: terraform destroy -target="aws_instance.one[3]"
+multi targets: terraform destroy -target="aws_instance.one[3]" -target="aws_instance.one[2]"
