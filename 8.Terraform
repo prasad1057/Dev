@@ -97,4 +97,38 @@ single target: terraform destroy -target="aws_instance.one[3]"
 multi targets: terraform destroy -target="aws_instance.one[3]" -target="aws_instance.one[2]"
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
+VARIABLES: to pass values as variables
 
+vim main.tf
+
+provider "aws" {
+}
+
+resource "aws_instance" "one" {
+count = var.instance_count
+ami = "ami-0fa7190e664488b99"
+instance_type = var.instance_type
+tags = {
+Name = "terra-server"
+}
+}
+
+------------------------------
+vim variable.tf
+
+variable "instance_type" {
+description = "*"
+type = string
+default = "t2.micro"
+}
+
+variable "instance_count" {
+description = "*"
+type = number
+default = 5
+}
+
+terraform apply --auto-approve
+terraform destroy --auto-approve
+
+------------------------------
