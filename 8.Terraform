@@ -111,9 +111,9 @@ instance_type = var.instance_type
 tags = {
 Name = "terra-server"
 }
-}
+}  
 
-------------------------------
+------
 vim variable.tf
 
 variable "instance_type" {
