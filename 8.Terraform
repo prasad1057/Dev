@@ -132,3 +132,109 @@ terraform apply --auto-approve
 terraform destroy --auto-approve
 
 ------------------------------
+How to change Secret key and access key in terraform
+
+got to root path (cd) -> ls -al -> .aws (all AWS credential configuration will be here ) -> ll .aws/  -> vim .aws/credentials
+
+------------------------------
+Whenever u get error on terraform plan then first check on whcih file that error is and after that u need to check which block
+--> Beacuse we have multiple resource block 
+
+------------------------------
+cat main.tf
+provider "aws" {
+}
+
+resource "aws_instance" "one" {
+count = var.instance_count
+ami = "ami-0fa7190e664488b99"
+instance_type = var.instance_type
+tags = {
+Name = "terra-server"
+}
+}
+------------
+cat variables.tf
+variable "instance_type" {
+}
+
+variable "instance_count" {
+}
+------------
+cat raham.tfvars
+instance_type = "t2.medium"
+instance_count = 3
+------------
+cat dev.tfvars
+instance_type = "t2.medium"
+instance_count = 3
+------------
+cat test.tfvars
+instance_type = "t2.micro"
+instance_count = 5
+
+FOR DEV ENV: terraform apply --auto-approve -var-file="dev.tfvars"
+FOR TEST ENV: terraform apply --auto-approve -var-file="test.tfvars"
+
+------------------------------
+TERRAFORMCLI: used to pass values from cli
+
+provider "aws" {
+}
+
+resource "aws_instance" "one" {
+ami = "ami-0fa7190e664488b99"
+instance_type = var.instance_type
+tags = {
+Name = "terra-server"
+}
+}
+
+variable "instance_type" {
+}
+
+terraform apply --auto-approve -var="instance_type=t2.medium"
+terraform destroy --auto-approve -var="instance_type=t2.medium"
+------------------------------
+provider "aws" {
+}
+
+resource "aws_instance" "one" {
+ami = var.ami_id
+instance_type = var.instance_type
+tags = {
+Name = "terra-server"
+}
+}
+
+variable "instance_type" {
+}
+
+variable "ami_id" {
+}
+
+terraform apply --auto-approve -var="instance_type=t2.large" -var="ami_id=ami-0fa7190e664488b99"
+terraform destroy --auto-approve -var="instance_type=t2.large" -var="ami_id=ami-0fa7190e664488b99"
+
+------------------------------
+TERRAFORM OUTPUTS: used to print the resource properties.
+ex: public-ip, dns, instance type
+
+
+provider "aws" {
+}
+
+resource "aws_instance" "one" {
+ami = "ami-0fa7190e664488b99"
+instance_type = "t2.micro"
+tags = {
+Name = "terra-server"
+}
+}
+
+output "raham" {
+value = [aws_instance.one.public_ip, aws_instance.one.private_ip, aws_instance.one.public_dns]
+}
+
+terraform apply --auto-approve
+terraform destroy --auto-approve
