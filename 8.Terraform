@@ -238,3 +238,186 @@ value = [aws_instance.one.public_ip, aws_instance.one.private_ip, aws_instance.o
 
 terraform apply --auto-approve
 terraform destroy --auto-approve
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+## AWS Terraform Instnaces
+
+vim main.tf
+
+provider "aws"{
+regiom = "us-east-1"
+}
+
+resource "aws_s3_bucket" "one"{
+bucket = "prasadk0143terrbucket"
+}
+
+resource "aws_ebs_volume" "two"{
+sice = 10
+availability_zone = "us-east-1b"
+tags = {
+Name = "prasad-ebs"
+}
+}
+
+terraform apply --auto-approve
+------------------------------
+vim main.tf
+
+provider "aws"{
+regiom = "us-east-1"
+}
+
+resource "aws_s3_bucket" "one"{
+bucket = "prasadk0143terrbucket"
+}
+
+resource "aws_ebs_volume" "two"{
+sice = 10
+availability_zone = "us-east-1b"
+tags = {
+Name = "prasad-ebs"
+}
+}
+
+resource "aws_iam_user" "three"{
+name = "karank"
+}
+
+terraform apply --auto-approve
+
+------------------------------
+## Terraform taint
+
+Terraform taint = used to recreate specific objects 
+in real time some resource we need to recreate if it will not work properly
+then we can use taint concpet.
+- here no need to execute the entire file.
+- we can just mark the object as tainted.
+
+vim main.tf
+
+provider "aws"{
+regiom = "us-east-1"
+}
+
+resource "aws_s3_bucket" "one"{
+bucket = "prasadk0143terrbucket"
+}
+
+resource "aws_ebs_volume" "two"{
+sice = 10
+availability_zone = "us-east-1b"
+tags = {
+Name = "prasad-ebs"
+}
+}
+
+resource "aws_iam_user" "three"{
+name = "karank"
+}
+
+resource "aws_instance" "four"{
+ami = "ami-0fa7190e664488b99"
+instance_type "t3.micro"
+tags = {
+Name = "prasad-terrserver"
+}
+}
+
+terraform apply --auto-approve
+terraform state list
+
+for example , in  above tf file the aws_instance resource block with label name is not working i want to recreate , so in that case terraform taint is used.
+-->
+terraform taint aws_instance.four
+terraform apply --auto-approve
+--> so it will recreate the object(i.e resource aws_instance block)
+
+------------------------------
+## Terraform LifeCycle
+
+Prevent_destroy : used to keep secure our resources without destrying
+
+vim main.tf
+
+provider "aws"{
+regiom = "us-east-1"
+}
+
+resource "aws_s3_bucket" "one"{
+bucket = "prasadk0143terrbucket"
+}
+
+resource "aws_ebs_volume" "two"{
+sice = 10
+availability_zone = "us-east-1b"
+tags = {
+Name = "prasad-ebs"
+}
+}
+
+resource "aws_iam_user" "three"{
+name = "karank"
+}
+
+resource "aws_instance" "four"{
+ami = "ami-0fa7190e664488b99"
+instance_type "t3.micro"
+tags = {
+Name = "prasad-terrserver"
+}
+lifecycle {
+prevent_destroy = true    # means it is not going to destroy 
+}
+}
+
+terraform apply --auto-approve
+terraform state list
+
+------------------------------
+vim main.tf
+
+provider "aws"{
+regiom = "us-east-1"
+}
+
+resource "aws_s3_bucket" "one"{
+bucket = "prasadk0143terrbucket"
+lifecycle {
+prevent_destroy = false
+}
+}
+
+resource "aws_ebs_volume" "two"{
+sice = 10
+availability_zone = "us-east-1b"
+tags = {
+Name = "prasad-ebs"
+}
+lifecycle {
+prevent_destroy = false
+}
+}
+
+resource "aws_iam_user" "three"{
+name = "karank"
+lifecycle {
+prevent_destroy = false
+}
+}
+
+resource "aws_instance" "four"{
+ami = "ami-0fa7190e664488b99"
+instance_type "t3.micro"
+tags = {
+Name = "prasad-terrserver"
+}
+lifecycle {
+prevent_destroy = true    # means it is not going to destroy 
+}
+}
+
+terraform apply --auto-approve
+terraform state list
+->> means all resource are not getiing to destroy if i give prevent_destroy = false for particular block
