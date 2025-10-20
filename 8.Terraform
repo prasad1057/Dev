@@ -99,6 +99,7 @@ single target: terraform destroy -target="aws_instance.one[3]"
 multi targets: terraform destroy -target="aws_instance.one[3]" -target="aws_instance.one[2]"
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
 VARIABLES: to pass values as variables
 
 vim main.tf
@@ -241,6 +242,7 @@ value = [aws_instance.one.public_ip, aws_instance.one.private_ip, aws_instance.o
 terraform apply --auto-approve
 terraform destroy --auto-approve
 
+---------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ## AWS Terraform Instnaces
 
@@ -425,6 +427,7 @@ terraform state list
 ->> means all resource are not getiing to destroy if i give prevent_destroy = false for particular block
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
 You should know about which software is on whcih server (like APP application is on APP server)
 in short u should about 3-tier architecture if dont know then u cant work in real time.
 
@@ -506,3 +509,233 @@ JFrog: Artifactory Service
 
 maven --> .war --> .jar
 war file = artifactory
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+Terraform Locals : 
+- its a block used to define a values.
+- we can define the value once and used it for multiple time.
+
+Q. What is Workspace in Teraform ?
+
+vim main.tf          = for dev area
+
+provider "aws" {
+region = "ap-south-1"
+}
+
+locals {
+env = "dev"
+}
+
+resource "aws_vpc" "one" {
+cidr_block = "10.0.0.0/16"
+tags ={
+Name = "${local.env}-vpc"
+}
+}
+
+resource "aws_subnet" "two" {
+cidr_block = "10.0.0.0/16"
+availability_zone = "ap-south-1a"
+vpc_id = aws_vpc.one.id
+tags = {
+Name = "${local.env}-subnet"
+}
+}
+
+resource "aws_instance" "three" {
+subnet_id = aws_subnet.two.id
+ami = "ami-0fa7190e664488b99"
+instance_type = "t3.micro"
+tags = {
+Name = dev-server
+]
+}
+
+terraform init
+terraform validate      = it is used for if there is an spelling mistake or not if yes then it will suggest
+terraform plan
+terraform apply --auto-approve
+
+-------------------------------------
+If I create the below test area with tf then the dev area will be remove automatically. so for that we have concept is Workspace.
+-------------------------------------
+
+vim main.tf          = for testing area
+
+provider "aws" {
+region = "ap-south-1"
+}
+
+locals {
+env = "dev"
+}
+
+resource "aws_vpc" "one" {
+cidr_block = "10.0.0.0/16"
+tags ={
+Name = "${local.env}-vpc"
+}
+}
+
+resource "aws_subnet" "two" {
+cidr_block = "10.0.0.0/16"
+availability_zone = "ap-south-1a"
+vpc_id = aws_vpc.one.id
+tags = {
+Name = "${local.env}-subnet"
+}
+}
+
+resource "aws_instance" "three" {
+subnet_id = aws_subnet.two.id
+ami = "ami-0fa7190e664488b99"
+instance_type = "t3.micro"
+tags = {
+Name = dev-server
+]
+}
+
+terraform init
+terraform validate    
+terraform plan
+terraform apply --auto-approve
+-------------------------------------------------
+
+TERRAFORM WORKSPACES:
+- workspace is used to isloate the envs.
+- In real time we create infra for envs by using workspace only.
+- by default we have a default workspace.
+- if we perform an operation on one workspace it wont affect another workspace
+
+COMMANDS :
+terraform workspace list           : to list down all workspaces
+terraform workspace new dev        : to create new workspace
+terraform workspace show           : to show current workspace
+terraform workspace select test    : to switch the workspace
+terraform workspace delete test    : to delete the workspace
+
+NOTE:
+1. we can't delete our current workspace.
+2. we can't delete our workspace without deleting resources.
+3. we cant't delete default workspace.
+
+------------------------------------
+terraform workspace new dev
+vim main.tf
+
+provider "aws" {
+region = "ap-south-1"
+}
+
+locals {
+env = "${terraform.workspace}"
+}
+
+resource "aws_vpc" "one" {
+cidr_block = "10.0.0.0/16"
+tags ={
+Name = "${local.env}-vpc"
+}
+}
+
+resource "aws_subnet" "two" {
+cidr_block = "10.0.0.0/16"
+availability_zone = "ap-south-1a"
+vpc_id = aws_vpc.one.id
+tags = {
+Name = "${local.env}-subnet"
+}
+}
+
+resource "aws_instance" "three" {
+subnet_id = aws_subnet.two.id
+ami = "ami-0fa7190e664488b99"
+instance_type = "t3.micro"
+tags = {
+Name = dev-server
+]
+}
+
+terraform apply --auto-approve
+------------------------------------------
+
+terraform workspace new test
+vim main.tf
+
+provider "aws" {
+region = "ap-south-1"
+}
+
+locals {
+env = "${terraform.workspace}"
+}
+
+resource "aws_vpc" "one" {
+cidr_block = "10.0.0.0/16"
+tags ={
+Name = "${local.env}-vpc"
+}
+}
+
+resource "aws_subnet" "two" {
+cidr_block = "10.0.0.0/16"
+availability_zone = "ap-south-1a"
+vpc_id = aws_vpc.one.id
+tags = {
+Name = "${local.env}-subnet"
+}
+}
+
+resource "aws_instance" "three" {
+subnet_id = aws_subnet.two.id
+ami = "ami-0fa7190e664488b99"
+instance_type = "t3.micro"
+tags = {
+Name = dev-server
+]
+}
+
+terraform apply --auto-approve
+terraform destroy --auto-approve
+terraform workspace delete test
+-----------------------------------------------------
+
+TERRAFORM GRAPH: used to show the flow chart of our infrastructure 
+terraform graph
+copy paste the content in graphviz wesbite online
+
+
+-----------------------------------------------------
+ALIAS AND PROVIDER: used to create resources on mutliple regions in single file.
+
+provider "aws" {
+region = "us-east-1"
+}
+
+resource "aws_instance" "one" {
+ami = "ami-00c6177f250e07ec1"
+instance_type = "t2.micro"
+tags = {
+Name = "nvirgina-server"
+}
+}
+
+provider "aws" {
+region = "ap-south-1"
+alias = "mumbai"
+}
+
+resource "aws_instance" "two" {
+provider = aws.mumbai
+ami = "ami-03d294e37a4820c21"
+instance_type = "t2.micro"
+tags = {
+Name = "mumbai-server"
+}
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
