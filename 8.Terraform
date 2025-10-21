@@ -99,6 +99,7 @@ single target: terraform destroy -target="aws_instance.one[3]"
 multi targets: terraform destroy -target="aws_instance.one[3]" -target="aws_instance.one[2]"
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
+Lec - 46
 ---------------------------------------------------------------------------------------------------------------------------------------------
 VARIABLES: to pass values as variables
 
@@ -243,6 +244,7 @@ terraform apply --auto-approve
 terraform destroy --auto-approve
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
+Lec - 47
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ## AWS Terraform Instnaces
 
@@ -427,6 +429,7 @@ terraform state list
 ->> means all resource are not getiing to destroy if i give prevent_destroy = false for particular block
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
+Lec - 48
 ---------------------------------------------------------------------------------------------------------------------------------------------
 You should know about which software is on whcih server (like APP application is on APP server)
 in short u should about 3-tier architecture if dont know then u cant work in real time.
@@ -512,6 +515,7 @@ war file = artifactory
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Lec - 49
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 Terraform Locals : 
 - its a block used to define a values.
@@ -738,4 +742,280 @@ Name = "mumbai-server"
 }
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+Lec - 50
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+LIFECYCYLE:
+
+1. PREVENET_DESTROY: it wont destroy the resource even if we run destroy command
+2. IGNORE CHANGES: it will not replicate the changes we have done to server (i.e it ignore the changes done on server)
+3. DEPENDS ON: it will depend on other resource to create (e.g if s3 bucket is created then only ec2 instnace will create)
+
+1. Prevent_Destroy :
+
+vim main.tf 
+
+provider "aws" {
+}
+
+resource "aws_instance" "one" {
+ami = "ami-01eccbf80522b562b"
+instance_type = "t2.large"
+tags = {
+Name = "abc-server"
+}
+lifecycle {
+prevent_destroy = true
+}
+}
+
+provider "aws" {
+}
+
+resource "aws_instance" "one" {
+ami = "ami-01eccbf80522b562b"
+instance_type = "t2.large"
+tags = {
+Name = "abc-server"
+}
+lifecycle {
+prevent_destroy = true
+}
+}
+
+-----------------------------------------------------
+TERRAFORM REMOTE BACKEND SETUP:
+when we create infra the information of resources will store on state file.
+so it will be tracking the infra information.
+so we need to take backup of that file.
+if we lost that file we cant track the infra.
+so we prefer to locate the state file on remote loaction.
+here im using s3 as remote backend.
+
+create a bucket manually
+
+provider "aws" {
+region = "us-east-1"
+}
+
+terraform {
+  backend "s3" {
+    bucket = "swiggypordinfrabuckt0099"
+    key    = "swiggy/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
+resource "aws_instance" "one" {
+ami = "ami-00c6177f250e07ec1"
+instance_type = "t2.micro"
+tags = {
+Name = "nvirgina-server"
+}
+}
+
+Note: while using new provider block always we need to run terraform init
+otherwise plugins will not be downloaded
+
+COMMAND :
+terraform refresh          : to refresh all the things in the state file
+- used to refresh and replicate the changes to state file. 
+- it will comapre terrform state file with resources.
+- if it is exist it will show, otherwise it will not show
+e.g. if I remove the ec2 instnace manually so then i check in state file(.tfstate) it will present there beacuse it not yet refresh. after i firing refresh command it remove that instance from state file also.
+in short it will check that if resource is there or not 
+
+-----------------------------------------------------
+To create LOCAL RESOURCES :
+- if you want to create local resources then you have to install plugin of that resource
+- how i can do this -> justwith the help of terraform init command -> it will download all related plugins to create that resource
+
+provider "aws" {
+}
+
+resource "local_file" "one" {
+filename = "abc.txt"
+content = "hai all my name is terraform"
+}
+-----------------------------------------------------
+TERRAFORM VERSION CONSTRATINTS:
+- it is used to change the provider version plugins.
+- can b applicable for all providers.
+
+without updating the provider plugins we cant create new resources
+
+provider "aws" {
+}
+
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "5.17.0"
+    }
+  }
+}
+
+"> 5.17.0, < 5.19.0" & ">5.17.0" & "<5.19.0"
+
+terraform {
+  required_providers {
+    local = {
+      source = "hashicorp/local"
+      version = "2.2.2"
+    }
+  }
+}
+
+-----------------------------------------------------
+DYNAMIC BLOCK: it is used to reduce the length of code and used for reusabilty of code in loop.
+egress = means outbound rules --> just like we give all things while creating ec2 instance (e.g.security group,port numbers,all traffic)
+
+Q. WHat is Dynammic BLock in Terraform ?
+-> to reduce the length of code 
+-> for example -> security group, for each and every group we need to write multiple lines of code, but ports i will define on ingress and i can call the values on dynamic block, autmaitcaly reduce the line of code
+work of for_each = it is going to pick the values from ingress rules , it is going to pick each and every values one by one 
+
+provider "aws" {
+}
+
+locals {
+  ingress_rules = [{
+    port        = 443
+    description = "Ingress rules for port 443"
+    },
+    {
+      port        = 80
+      description = "Ingree rules for port 80"
+  },
+  {
+      port        = 8080
+      description = "Ingree rules for port 8080"
+
+  }]
+}
+
+resource "aws_instance" "ec2_example" {
+  ami                    = "ami-0c02fb55956c7d316"
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.main.id]
+  tags = {
+    Name = "Terraform EC2"
+  }
+}
+
+resource "aws_security_group" "main" {
+
+  egress = [
+    {
+      cidr_blocks      = ["0.0.0.0/0"]
+      description      = "*"
+      from_port        = 0
+      ipv6_cidr_blocks = []
+      prefix_list_ids  = []
+      protocol         = "-1"
+      security_groups  = []
+      self             = false
+      to_port          = 0
+  }]
+
+  dynamic "ingress" {
+    for_each = local.ingress_rules
+
+    content {
+      description = "*"
+      from_port   = ingress.value.port
+      to_port     = ingress.value.port
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+
+  tags = {
+    Name = "terra sg"
+  }
+}
+
+-----------------------------------------------------
+TERRAFORM FRT: to set the allignment for my code
+
+FOR_EACH:
+
+provider "aws" {
+}
+
+resource "aws_instance" "two" {
+for_each = toset(["web-server", "app-server", "db-server"])
+ami = "ami-04beabd6a4fb6ab6f"
+instance_type = "t2.micro"
+tags = {
+Name = "${each.key}"
+}
+}
+
+AWS - CFT
+AZURE - ARM
+GCP - GDE
+
+-----------------------------------------------------
+Another mehtod to crete multiple instances with minimal code
+
+provider "aws" {
+}
+
+resource "aws_instance" "two" {
+count = length(var.instance_type)
+ami = "ami-04beabd6a4fb6ab6f"
+instance_type = var.instance_type[count.index]
+tags = {
+Name = vavr.instance_name[count.index
+}
+}
+
+variable "instance_type"{
+default = ["t2.medium","t2.micro","t2.nano"]
+}
+
+variable "instance_name"{
+default = ["webserver","appserver","dbserver"]
+}
+
+-----------------------------------------------------
+Q. What is Deployement ?
+-> The term Deplyements refers the installation of Web_applcaition on Web Application Server.
+
+WEB APPLICATION : webservers (TOmcat,Nginx,Jboss,ISS)
+- A web application is a program that can be accessed via browser and is linked to database
+- can interact with en users
+- we can Read and Manipulate
+- Compex Functionality 
+
+Website v/s Web-Application
+- If u have only frontend code then that is Website(APACHE server)
+- but if u have frontend + backend code then it will web-applacition(TOMCAT)
+
+WEBSITE : webserver: (HTTPD,NGINX)
+- A website is a coolectio nof relate pages conatinign images,audo,or videos linked by a single domain name.
+- can't ineract with end users
+- we can't Read and Manipulate
+- Simple Functionality 
+
+WHY WE NEED ?
+The Main essence of the DEplyemnets is :
+- Adding New Features to the Application
+- Removing the bugs
+- Enhancing the New Features
+- Improving the Performance
+- Breaking Large Applcaiton to Microsrvices
+
+THINGS NEED FOR THE DEPLOYEMENTS :
+- We need to have Infra Setup
+- New Release of code  
+- Involvement of Dev, QA, and Devops Team
+- Creating New DB's if needed
+- APproval from RM (in case of New release)
+ 
+THINGS TO CONSIDER AND TAKEN CARE WHILE DEPLOYMENT.
+- Need to take Backups of the Current Builds and DataBases.
+- Need To Provide Isolated Environments for Dev, Test and Prod.
+- Can be able to do RollBack if the Deployment fails in some cases.
+- Make sure we are deploying the correct env and Client Application Servers.
